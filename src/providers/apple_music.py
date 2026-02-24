@@ -7,6 +7,7 @@ from src.models import Track
 from src.providers.base import AuthenticationError, MusicProvider
 from src.providers.playwright_helper import browser_context, load_cookies_from_secret
 from src.providers.selector_loader import get_selectors
+from src.utils.retry import ScrapingError
 
 logger = logging.getLogger(__name__)
 
@@ -39,30 +40,36 @@ class AppleMusicProvider(MusicProvider):
         tracks: list[Track] = []
         sel = self._selectors
 
-        async with browser_context(cookies=self._cookies) as (ctx, page):
-            await page.goto(playlist_url, wait_until="networkidle")
+        try:
+            async with browser_context(cookies=self._cookies) as (ctx, page):
+                await page.goto(playlist_url, wait_until="networkidle")
 
-            # ログイン状態の確認
-            logged_in = await page.query_selector(sel["logged_in_indicator"])
-            if not logged_in:
-                raise AuthenticationError("Apple Music: not logged in. Cookie may be expired.")
+                # ログイン状態の確認
+                logged_in = await page.query_selector(sel["logged_in_indicator"])
+                if not logged_in:
+                    raise AuthenticationError("Apple Music: not logged in. Cookie may be expired.")
 
-            # トラック行を取得
-            rows = await page.query_selector_all(sel["playlist_track_row"])
-            for row in rows:
-                title_el = await row.query_selector(sel["track_title"])
-                artist_el = await row.query_selector(sel["track_artist"])
+                # トラック行を取得
+                rows = await page.query_selector_all(sel["playlist_track_row"])
+                if not rows:
+                    logger.warning("Apple Music: No track rows found for selector '%s'", sel["playlist_track_row"])
 
-                title = (await title_el.inner_text()).strip() if title_el else ""
-                artist = (await artist_el.inner_text()).strip() if artist_el else ""
+                for row in rows:
+                    title_el = await row.query_selector(sel["track_title"])
+                    artist_el = await row.query_selector(sel["track_artist"])
 
-                tracks.append(Track(
-                    isrc=None,  # Apple Music のページからは ISRC 取得困難
-                    title=title,
-                    artist=artist,
-                    album="",
-                    service_ids={"apple_music": playlist_url},
-                ))
+                    title = (await title_el.inner_text()).strip() if title_el else ""
+                    artist = (await artist_el.inner_text()).strip() if artist_el else ""
+
+                    tracks.append(Track(
+                        isrc=None,  # Apple Music のページからは ISRC 取得困難
+                        title=title,
+                        artist=artist,
+                        album="",
+                        service_ids={"apple_music": playlist_url},
+                    ))
+        except TimeoutError as e:
+            raise ScrapingError(f"Apple Music: page load timed out for {playlist_url}: {e}") from e
 
         logger.info("Retrieved %d tracks from Apple Music playlist", len(tracks))
         return tracks
