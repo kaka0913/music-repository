@@ -8,34 +8,34 @@
 
 ### 1.1 プロジェクト初期化
 
-- [ ] Git リポジトリ初期化、`.gitignore` 作成（Python テンプレート + `state/` 以外の機密ファイル）
-- [ ] `requirements.txt` 作成（spotipy, playwright, google-cloud-secret-manager, pyyaml, pytest）
-- [ ] ディレクトリ構成をスキャフォールド（`src/`, `src/providers/`, `src/utils/`, `config/`, `state/`, `tools/`, `tests/`）
+- [x] Git リポジトリ初期化、`.gitignore` 作成（Python テンプレート + `state/` 以外の機密ファイル）
+- [x] `requirements.txt` 作成（spotipy, playwright, google-cloud-secret-manager, pyyaml, pytest）
+- [x] ディレクトリ構成をスキャフォールド（`src/`, `src/providers/`, `src/utils/`, `config/`, `state/`, `tools/`, `tests/`）
 
 ### 1.2 データモデル (`src/models.py`)
 
-- [ ] `Track` dataclass 定義（isrc, title, artist, album, service_ids, added_at）
-- [ ] `PlaylistConfig` dataclass 定義（name, spotify, apple_music, amazon_music の ID/URL）
-- [ ] `SyncResult` dataclass 定義（added, removed, unmatched, errors）
+- [x] `Track` dataclass 定義（isrc, title, artist, album, service_ids, added_at）
+- [x] `PlaylistConfig` dataclass 定義（name, spotify, apple_music, amazon_music の ID/URL）
+- [x] `SyncResult` dataclass 定義（added, removed, unmatched, errors）
 
 ### 1.3 設定ファイルローダー (`src/config_loader.py`)
 
-- [ ] `config/playlists.yaml` のパース処理
-- [ ] バリデーション（必須フィールドの存在チェック、重複プレイリスト名の検知）
-- [ ] `config/playlists.yaml` のサンプルファイル作成
-- [ ] テスト (`tests/test_config_loader.py`)
+- [x] `config/playlists.yaml` のパース処理
+- [x] バリデーション（必須フィールドの存在チェック、重複プレイリスト名の検知）
+- [x] `config/playlists.yaml` のサンプルファイル作成
+- [x] テスト (`tests/test_config_loader.py`)
 
 ### 1.4 GCP Secret Manager 連携 (`src/utils/secret_manager.py`)
 
-- [ ] シークレット取得関数 `get_secret(secret_id) -> str`
-- [ ] シークレット更新関数 `set_secret(secret_id, value) -> None`（Cookie更新ツール用）
-- [ ] GCP プロジェクト ID の環境変数読み込み
-- [ ] テスト（モック使用）
+- [x] シークレット取得関数 `get_secret(secret_id) -> str`
+- [x] シークレット更新関数 `set_secret(secret_id, value) -> None`（Cookie更新ツール用）
+- [x] GCP プロジェクト ID の環境変数読み込み
+- [x] テスト（モック使用）
 
 ### 1.5 プロバイダー基底クラス (`src/providers/base.py`)
 
-- [ ] `MusicProvider` ABC 定義（authenticate, get_playlist_tracks, add_tracks, remove_tracks, search_track）
-- [ ] `AuthenticationError` カスタム例外定義
+- [x] `MusicProvider` ABC 定義（authenticate, get_playlist_tracks, add_tracks, remove_tracks, search_track）
+- [x] `AuthenticationError` カスタム例外定義
 
 ---
 
@@ -43,40 +43,40 @@
 
 ### 2.1 Spotify プロバイダー (`src/providers/spotify.py`)
 
-- [ ] `SpotifyProvider(MusicProvider)` クラスのスケルトン作成
-- [ ] `authenticate()`: Secret Manager からリフレッシュトークン取得 → spotipy クライアント初期化
-- [ ] `get_playlist_tracks()`: プレイリスト全曲取得 → `Track` リストに変換（ISRC, added_at 含む）
-- [ ] `add_tracks()`: プレイリストへ楽曲追加（Spotify URI 指定）
-- [ ] `remove_tracks()`: プレイリストから楽曲削除
-- [ ] `search_track()`: ISRC 検索 → フォールバックで曲名+アーティスト検索
-- [ ] テスト (`tests/test_providers/test_spotify.py`)
+- [x] `SpotifyProvider(MusicProvider)` クラスのスケルトン作成
+- [x] `authenticate()`: Secret Manager からリフレッシュトークン取得 → spotipy クライアント初期化
+- [x] `get_playlist_tracks()`: プレイリスト全曲取得 → `Track` リストに変換（ISRC, added_at 含む）
+- [x] `add_tracks()`: プレイリストへ楽曲追加（Spotify URI 指定）
+- [x] `remove_tracks()`: プレイリストから楽曲削除
+- [x] `search_track()`: ISRC 検索 → フォールバックで曲名+アーティスト検索
+- [x] テスト (`tests/test_providers/test_spotify.py`)
 
 ### 2.2 ISRC マッチング (`src/utils/isrc.py`)
 
-- [ ] `match_by_isrc(track, provider) -> Track | None`: ISRC でサービス内楽曲を検索
-- [ ] `match_by_metadata(track, provider) -> Track | None`: 曲名+アーティスト名でフォールバック検索
-- [ ] `find_match(track, provider) -> Track | None`: 上記を順に試行する統合関数
-- [ ] テスト (`tests/test_isrc.py`)
+- [x] `match_by_isrc(track, provider) -> Track | None`: ISRC でサービス内楽曲を検索
+- [x] `match_by_metadata(track, provider) -> Track | None`: 曲名+アーティスト名でフォールバック検索
+- [x] `find_match(track, provider) -> Track | None`: 上記を順に試行する統合関数
+- [x] テスト (`tests/test_isrc.py`)
 
 ### 2.3 差分検知エンジン (`src/sync_engine.py`)
 
-- [ ] `load_state(playlist_name) -> dict`: `state/{name}.json` の読み込み（初回は空状態を返す）
-- [ ] `save_state(playlist_name, state) -> None`: 状態ファイルの書き出し
-- [ ] `compute_diff(previous, current) -> (added, removed)`: ISRC ベースで差分計算
-- [ ] `resolve_conflicts(diffs_by_service) -> (to_add, to_remove)`: タイムスタンプ優先の競合解決
-- [ ] `sync_playlist(playlist_config, providers) -> SyncResult`: 1プレイリストの同期全体を実行
-- [ ] テスト (`tests/test_sync_engine.py`)
+- [x] `load_state(playlist_name) -> dict`: `state/{name}.json` の読み込み（初回は空状態を返す）
+- [x] `save_state(playlist_name, state) -> None`: 状態ファイルの書き出し
+- [x] `compute_diff(previous, current) -> (added, removed)`: ISRC ベースで差分計算
+- [x] `resolve_conflicts(diffs_by_service) -> (to_add, to_remove)`: タイムスタンプ優先の競合解決
+- [x] `sync_playlist(playlist_config, providers) -> SyncResult`: 1プレイリストの同期全体を実行
+- [x] テスト (`tests/test_sync_engine.py`)
 
 ### 2.4 エントリーポイント (`src/main.py`)
 
-- [ ] 設定読み込み → プロバイダー初期化 → 全プレイリスト同期のオーケストレーション
-- [ ] logging 設定（INFO/WARNING/ERROR）
-- [ ] 終了コード管理（エラー時は非ゼロで終了）
+- [x] 設定読み込み → プロバイダー初期化 → 全プレイリスト同期のオーケストレーション
+- [x] logging 設定（INFO/WARNING/ERROR）
+- [x] 終了コード管理（エラー時は非ゼロで終了）
 
 ### 2.5 GitHub Actions 初期構築
 
-- [ ] `.github/workflows/sync.yml` 作成（Python セットアップ、依存インストール、GCP 認証、同期実行、state コミット）
-- [ ] `workflow_dispatch` で手動実行可能にする
+- [x] `.github/workflows/sync.yml` 作成（Python セットアップ、依存インストール、GCP 認証、同期実行、state コミット）
+- [x] `workflow_dispatch` で手動実行可能にする
 - [ ] Spotify のみで E2E 動作確認
 
 ---
@@ -85,37 +85,37 @@
 
 ### 3.1 Playwright 共通基盤
 
-- [ ] Cookie 注入によるログイン状態復元のヘルパー関数
-- [ ] `config/selectors.yaml` のローダー実装
-- [ ] ブラウザ起動・終了のコンテキストマネージャー（タイムアウト 30秒/操作）
+- [x] Cookie 注入によるログイン状態復元のヘルパー関数
+- [x] `config/selectors.yaml` のローダー実装
+- [x] ブラウザ起動・終了のコンテキストマネージャー（タイムアウト 30秒/操作）
 
 ### 3.2 Apple Music プロバイダー (`src/providers/apple_music.py`)
 
-- [ ] `AppleMusicProvider(MusicProvider)` クラスのスケルトン作成
-- [ ] `authenticate()`: Secret Manager から Cookie 取得 → Playwright セッションに注入
-- [ ] `get_playlist_tracks()`: プレイリストページをスクレイピングして曲目取得
-- [ ] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
-- [ ] `remove_tracks()`: プレイリストから削除のブラウザ操作
-- [ ] `search_track()`: Apple Music 検索を利用したフォールバック
+- [x] `AppleMusicProvider(MusicProvider)` クラスのスケルトン作成
+- [x] `authenticate()`: Secret Manager から Cookie 取得 → Playwright セッションに注入
+- [x] `get_playlist_tracks()`: プレイリストページをスクレイピングして曲目取得
+- [x] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
+- [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
+- [x] `search_track()`: Apple Music 検索を利用したフォールバック
 - [ ] ISRC 取得方法の調査・実装
-- [ ] テスト (`tests/test_providers/test_apple_music.py`)
+- [x] テスト (`tests/test_providers/test_apple_music.py`)
 
 ### 3.3 Amazon Music プロバイダー (`src/providers/amazon_music.py`)
 
-- [ ] `AmazonMusicProvider(MusicProvider)` クラスのスケルトン作成
-- [ ] `authenticate()`: Secret Manager から Cookie 取得 → Playwright セッションに注入
-- [ ] `get_playlist_tracks()`: プレイリストページをスクレイピングして曲目取得
-- [ ] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
-- [ ] `remove_tracks()`: プレイリストから削除のブラウザ操作
-- [ ] `search_track()`: Amazon Music 検索を利用したフォールバック
+- [x] `AmazonMusicProvider(MusicProvider)` クラスのスケルトン作成
+- [x] `authenticate()`: Secret Manager から Cookie 取得 → Playwright セッションに注入
+- [x] `get_playlist_tracks()`: プレイリストページをスクレイピングして曲目取得
+- [x] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
+- [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
+- [x] `search_track()`: Amazon Music 検索を利用したフォールバック
 - [ ] ISRC 取得方法の調査・実装（ASIN 経由含む）
-- [ ] テスト (`tests/test_providers/test_amazon_music.py`)
+- [x] テスト (`tests/test_providers/test_amazon_music.py`)
 
 ### 3.4 3サービス間同期の統合テスト
 
-- [ ] 全プロバイダーを組み合わせた同期の E2E 動作確認
-- [ ] 競合解決の実動作確認（追加+削除の同時発生ケース）
-- [ ] unmatched 楽曲の記録が正しく行われるか確認
+- [x] 全プロバイダーを組み合わせた同期の E2E 動作確認
+- [x] 競合解決の実動作確認（追加+削除の同時発生ケース）
+- [x] unmatched 楽曲の記録が正しく行われるか確認
 
 ---
 
@@ -123,33 +123,33 @@
 
 ### 4.1 メール通知 (`src/notification.py`)
 
-- [ ] Gmail SMTP 接続（アプリパスワード使用）
-- [ ] エラー通知メールの組み立て（認証エラー、未同期楽曲のサマリー）
-- [ ] `main.py` からの呼び出し（エラー/unmatched がある場合のみ送信）
-- [ ] テスト（SMTP モック使用）
+- [x] Gmail SMTP 接続（アプリパスワード使用）
+- [x] エラー通知メールの組み立て（認証エラー、未同期楽曲のサマリー）
+- [x] `main.py` からの呼び出し（エラー/unmatched がある場合のみ送信）
+- [x] テスト（SMTP モック使用）
 
 ### 4.2 エラーハンドリング強化
 
-- [ ] 認証エラー (401/403) → 即時終了 + 通知
-- [ ] レート制限 (429) → 指数バックオフリトライ（最大3回）
-- [ ] ネットワークエラー → リトライ（最大3回）
-- [ ] スクレイピング要素未検出 → 該当サービスをスキップ + 通知
-- [ ] 部分失敗時の継続動作（1サービスの失敗で全体を止めない）
+- [x] 認証エラー (401/403) → 即時終了 + 通知
+- [x] レート制限 (429) → 指数バックオフリトライ（最大3回）
+- [x] ネットワークエラー → リトライ（最大3回）
+- [x] スクレイピング要素未検出 → 該当サービスをスキップ + 通知
+- [x] 部分失敗時の継続動作（1サービスの失敗で全体を止めない）
 
 ### 4.3 Cookie 半自動更新ツール (`tools/refresh_cookie.py`)
 
-- [ ] CLI 引数パース（`--service amazon_music|apple_music|all`）
-- [ ] Playwright ヘッドフルモードでログインページを開く
-- [ ] ログイン完了の検知（URL 遷移 or 特定要素の出現）
-- [ ] Cookie 抽出 → JSON シリアライズ → Secret Manager へアップロード
-- [ ] 完了メッセージ表示
+- [x] CLI 引数パース（`--service amazon_music|apple_music|all`）
+- [x] Playwright ヘッドフルモードでログインページを開く
+- [x] ログイン完了の検知（URL 遷移 or 特定要素の出現）
+- [x] Cookie 抽出 → JSON シリアライズ → Secret Manager へアップロード
+- [x] 完了メッセージ表示
 
 ### 4.4 GitHub Actions 本番設定
 
-- [ ] Cron スケジュール有効化（毎日 AM3:00 UTC）
-- [ ] Playwright ブラウザインストールステップ追加
+- [x] Cron スケジュール有効化（毎日 AM3:00 UTC）
+- [x] Playwright ブラウザインストールステップ追加
 - [ ] 全シークレットの GitHub Secrets への登録確認
-- [ ] タイムアウト設定（ジョブ全体 10分）
+- [x] タイムアウト設定（ジョブ全体 10分）
 - [ ] 数日間の安定稼働確認
 
 ---
