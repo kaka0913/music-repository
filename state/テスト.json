@@ -1,0 +1,47 @@
+{
+  "playlist_name": "テスト",
+  "last_synced_at": "2026-02-24T15:15:44.822518+00:00",
+  "tracks": [
+    {
+      "isrc": "JPES00502221",
+      "title": "SAKURA",
+      "artist": "Ikimonogakari",
+      "album": "SAKURA",
+      "service_ids": {
+        "spotify": "66lz2zmD3xv05y4OWjxIhJ"
+      },
+      "added_at": "2026-02-24T15:13:27Z"
+    },
+    {
+      "isrc": "JPR652400186",
+      "title": "走れSAKAMOTO",
+      "artist": "Vaundy",
+      "album": "走れSAKAMOTO",
+      "service_ids": {
+        "spotify": "4XObDlhGp6sREJoZj2lFv2"
+      },
+      "added_at": "2026-02-24T15:13:39Z"
+    },
+    {
+      "isrc": "JPPC02511689",
+      "title": "ダンデライオン",
+      "artist": "go!go!vanillas",
+      "album": "ダンデライオン",
+      "service_ids": {
+        "spotify": "2mRy8qlmbAhHDSzkEkSYTz"
+      },
+      "added_at": "2026-02-24T15:13:44Z"
+    },
+    {
+      "isrc": "JPKS01002241",
+      "title": "Diver",
+      "artist": "NICO Touches the Walls",
+      "album": "Diver",
+      "service_ids": {
+        "spotify": "7uulkOL4yWt0J6qlJxLBA1"
+      },
+      "added_at": "2026-02-24T15:14:07Z"
+    }
+  ],
+  "unmatched": []
+}

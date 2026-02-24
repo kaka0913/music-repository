@@ -25,6 +25,9 @@ env/
 .env.*
 credentials.json
 
+# Spotipy auth cache
+.cache
+
 # State files (synced via git, but exclude sensitive backups)
 state/*.bak
 
