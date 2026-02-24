@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from src.models import Track
-from src.providers.apple_music import AppleMusicProvider
+from src.providers.apple_music import AppleMusicProvider, _extract_isrc_map_from_api_response
 from src.providers.base import AuthenticationError
 
 
@@ -204,3 +204,98 @@ class TestSearchTrack:
         result = provider.search_track("Nonexistent Song", "Unknown Artist")
 
         assert result is None
+
+
+class TestExtractIsrcMap:
+    """_extract_isrc_map_from_api_response() のテスト。"""
+
+    def test_playlist_response_with_tracks(self) -> None:
+        """プレイリスト応答 (relationships.tracks.data) から ISRC を抽出。"""
+        api_response = {
+            "data": [
+                {
+                    "type": "playlists",
+                    "relationships": {
+                        "tracks": {
+                            "data": [
+                                {
+                                    "type": "songs",
+                                    "attributes": {
+                                        "name": "Bohemian Rhapsody",
+                                        "isrc": "GBUM71029604",
+                                    },
+                                },
+                                {
+                                    "type": "songs",
+                                    "attributes": {
+                                        "name": "Imagine",
+                                        "isrc": "USRC17000592",
+                                    },
+                                },
+                            ]
+                        }
+                    },
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {
+            "bohemian rhapsody": "GBUM71029604",
+            "imagine": "USRC17000592",
+        }
+
+    def test_direct_track_attributes(self) -> None:
+        """トラック直接取得 (data[].attributes.isrc) から ISRC を抽出。"""
+        api_response = {
+            "data": [
+                {
+                    "type": "songs",
+                    "attributes": {
+                        "name": "Yesterday",
+                        "isrc": "GBAYE0601477",
+                    },
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {"yesterday": "GBAYE0601477"}
+
+    def test_search_results(self) -> None:
+        """検索結果 (results.songs.data) から ISRC を抽出。"""
+        api_response = {
+            "results": {
+                "songs": {
+                    "data": [
+                        {
+                            "type": "songs",
+                            "attributes": {
+                                "name": "Let It Be",
+                                "isrc": "GBDCE0400088",
+                            },
+                        }
+                    ]
+                }
+            }
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {"let it be": "GBDCE0400088"}
+
+    def test_empty_response(self) -> None:
+        """空のレスポンスでは空辞書を返す。"""
+        assert _extract_isrc_map_from_api_response({}) == {}
+        assert _extract_isrc_map_from_api_response({"data": []}) == {}
+
+    def test_missing_isrc(self) -> None:
+        """ISRC がないトラックは無視される。"""
+        api_response = {
+            "data": [
+                {
+                    "type": "songs",
+                    "attributes": {
+                        "name": "No ISRC Song",
+                    },
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {}

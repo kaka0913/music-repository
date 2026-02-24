@@ -7,7 +7,7 @@ import pytest
 
 from src.models import Track
 from src.providers.base import AuthenticationError
-from src.providers.amazon_music import AmazonMusicProvider
+from src.providers.amazon_music import AmazonMusicProvider, _extract_isrc_map_from_api_response
 
 
 FAKE_COOKIES = [{"name": "session-id", "value": "abc123", "domain": ".amazon.co.jp", "path": "/"}]
@@ -181,3 +181,84 @@ class TestSearchTrack:
         result = provider.search_track("Nonexistent Song", "Unknown Artist")
 
         assert result is None
+
+
+class TestExtractIsrcMap:
+    """_extract_isrc_map_from_api_response() のテスト。"""
+
+    def test_nested_metadata(self) -> None:
+        """metadata ネスト構造から ISRC/ASIN を抽出。"""
+        api_response = {
+            "methods": [
+                {
+                    "template": {
+                        "widgets": [
+                            {
+                                "items": [
+                                    {
+                                        "title": "Bohemian Rhapsody",
+                                        "isrc": "GBUM71029604",
+                                        "asin": "B01N5XY2WQ",
+                                    },
+                                    {
+                                        "title": "Imagine",
+                                        "isrc": "USRC17000592",
+                                        "asin": "B00137QLTY",
+                                    },
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {
+            "bohemian rhapsody": {"isrc": "GBUM71029604", "asin": "B01N5XY2WQ"},
+            "imagine": {"isrc": "USRC17000592", "asin": "B00137QLTY"},
+        }
+
+    def test_metadata_with_catalogid(self) -> None:
+        """catalogId を ASIN として抽出。"""
+        api_response = {
+            "tracks": [
+                {
+                    "metadata": {
+                        "title": "Yesterday",
+                        "isrc": "GBAYE0601477",
+                    },
+                    "catalogId": "B001234567",
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result["yesterday"]["isrc"] == "GBAYE0601477"
+        assert result["yesterday"]["asin"] == "B001234567"
+
+    def test_asin_only(self) -> None:
+        """ISRC がなく ASIN のみの場合も抽出。"""
+        api_response = {
+            "results": [
+                {
+                    "title": "Let It Be",
+                    "asin": "B0ASINONLY1",
+                }
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {"let it be": {"isrc": None, "asin": "B0ASINONLY1"}}
+
+    def test_empty_response(self) -> None:
+        """空のレスポンスでは空辞書を返す。"""
+        assert _extract_isrc_map_from_api_response({}) == {}
+        assert _extract_isrc_map_from_api_response({"data": []}) == {}
+
+    def test_no_title_skipped(self) -> None:
+        """タイトルがないアイテムは無視される。"""
+        api_response = {
+            "items": [
+                {"isrc": "GBUM71029604", "asin": "B01N5XY2WQ"},
+            ]
+        }
+        result = _extract_isrc_map_from_api_response(api_response)
+        assert result == {}

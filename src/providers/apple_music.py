@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 
 from src.models import Track
@@ -12,6 +13,48 @@ from src.utils.retry import ScrapingError
 logger = logging.getLogger(__name__)
 
 SECRET_ID = "apple-music-cookie"
+
+
+def _extract_isrc_map_from_api_response(data: dict) -> dict[str, str]:
+    """Apple Music API レスポンスからタイトル→ISRC のマッピングを抽出する。
+
+    amp-api.music.apple.com のレスポンス構造:
+      data[].relationships.tracks.data[].attributes.{name, isrc}
+      または data[].attributes.{name, isrc} (トラック直接取得時)
+    """
+    isrc_map: dict[str, str] = {}
+
+    def _extract_from_items(items: list[dict]) -> None:
+        for item in items:
+            attrs = item.get("attributes", {})
+            name = attrs.get("name", "").strip().lower()
+            isrc = attrs.get("isrc")
+            if name and isrc:
+                isrc_map[name] = isrc
+
+    # パターン1: プレイリスト応答 (data[].relationships.tracks.data[])
+    top_data = data.get("data", [])
+    if isinstance(top_data, list):
+        for entry in top_data:
+            rel = entry.get("relationships", {})
+            tracks_rel = rel.get("tracks", {})
+            track_items = tracks_rel.get("data", [])
+            if track_items:
+                _extract_from_items(track_items)
+
+            # パターン2: トラック直接 (data[].attributes.isrc)
+            attrs = entry.get("attributes", {})
+            if attrs.get("isrc") and attrs.get("name"):
+                isrc_map[attrs["name"].strip().lower()] = attrs["isrc"]
+
+    # パターン3: results / next ページ (results.songs.data[])
+    results = data.get("results", {})
+    if isinstance(results, dict):
+        for section in results.values():
+            if isinstance(section, dict):
+                _extract_from_items(section.get("data", []))
+
+    return isrc_map
 
 
 class AppleMusicProvider(MusicProvider):
@@ -39,9 +82,26 @@ class AppleMusicProvider(MusicProvider):
     async def _get_playlist_tracks_async(self, playlist_url: str) -> list[Track]:
         tracks: list[Track] = []
         sel = self._selectors
+        isrc_map: dict[str, str] = {}
+
+        async def _on_response(response) -> None:
+            """amp-api のレスポンスから ISRC を収集。"""
+            url = response.url
+            if "amp-api.music.apple.com" not in url:
+                return
+            try:
+                if response.status == 200 and "json" in response.headers.get("content-type", ""):
+                    body = await response.json()
+                    extracted = _extract_isrc_map_from_api_response(body)
+                    isrc_map.update(extracted)
+                    if extracted:
+                        logger.debug("Extracted %d ISRCs from Apple Music API", len(extracted))
+            except Exception:
+                pass  # レスポンスの読み取り失敗は無視
 
         try:
             async with browser_context(cookies=self._cookies) as (ctx, page):
+                page.on("response", _on_response)
                 await page.goto(playlist_url, wait_until="networkidle")
 
                 # ログイン状態の確認
@@ -61,8 +121,11 @@ class AppleMusicProvider(MusicProvider):
                     title = (await title_el.inner_text()).strip() if title_el else ""
                     artist = (await artist_el.inner_text()).strip() if artist_el else ""
 
+                    # インターセプトした API レスポンスから ISRC を照合
+                    isrc = isrc_map.get(title.lower())
+
                     tracks.append(Track(
-                        isrc=None,  # Apple Music のページからは ISRC 取得困難
+                        isrc=isrc,
                         title=title,
                         artist=artist,
                         album="",
@@ -71,7 +134,8 @@ class AppleMusicProvider(MusicProvider):
         except TimeoutError as e:
             raise ScrapingError(f"Apple Music: page load timed out for {playlist_url}: {e}") from e
 
-        logger.info("Retrieved %d tracks from Apple Music playlist", len(tracks))
+        matched = sum(1 for t in tracks if t.isrc)
+        logger.info("Retrieved %d tracks from Apple Music playlist (%d with ISRC)", len(tracks), matched)
         return tracks
 
     def add_tracks(self, playlist_id: str, tracks: list[Track]) -> None:
@@ -141,8 +205,21 @@ class AppleMusicProvider(MusicProvider):
 
     async def _search_track_async(self, title: str, artist: str) -> Track | None:
         sel = self._selectors
+        isrc_map: dict[str, str] = {}
+
+        async def _on_response(response) -> None:
+            url = response.url
+            if "amp-api.music.apple.com" not in url:
+                return
+            try:
+                if response.status == 200 and "json" in response.headers.get("content-type", ""):
+                    body = await response.json()
+                    isrc_map.update(_extract_isrc_map_from_api_response(body))
+            except Exception:
+                pass
 
         async with browser_context(cookies=self._cookies) as (ctx, page):
+            page.on("response", _on_response)
             await page.goto("https://music.apple.com/search", wait_until="networkidle")
 
             search_input = await page.wait_for_selector(sel["search_input"])
@@ -160,8 +237,10 @@ class AppleMusicProvider(MusicProvider):
             found_title = (await title_el.inner_text()).strip() if title_el else title
             found_artist = (await artist_el.inner_text()).strip() if artist_el else artist
 
+            isrc = isrc_map.get(found_title.lower())
+
             return Track(
-                isrc=None,
+                isrc=isrc,
                 title=found_title,
                 artist=found_artist,
                 album="",
