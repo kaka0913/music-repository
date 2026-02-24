@@ -17,12 +17,15 @@
 - [x] `Track` dataclass 定義（isrc, title, artist, album, service_ids, added_at）
 - [x] `PlaylistConfig` dataclass 定義（name, spotify, apple_music, amazon_music の ID/URL）
 - [x] `SyncResult` dataclass 定義（added, removed, unmatched, errors）
+- [x] `PlaylistInfo` dataclass 定義（name, service_ids）— 自動発見用
+- [x] `SyncConfig` dataclass 定義（auto_discover, playlists）— 設定全体
 
 ### 1.3 設定ファイルローダー (`src/config_loader.py`)
 
 - [x] `config/playlists.yaml` のパース処理
 - [x] バリデーション（必須フィールドの存在チェック、重複プレイリスト名の検知）
 - [x] `config/playlists.yaml` のサンプルファイル作成
+- [x] `load_config()` 追加（`auto_discover` フラグを含む `SyncConfig` を返す）
 - [x] テスト (`tests/test_config_loader.py`)
 
 ### 1.4 GCP Secret Manager 連携 (`src/utils/secret_manager.py`)
@@ -35,6 +38,7 @@
 ### 1.5 プロバイダー基底クラス (`src/providers/base.py`)
 
 - [x] `MusicProvider` ABC 定義（authenticate, get_playlist_tracks, add_tracks, remove_tracks, search_track）
+- [x] `get_all_playlists()`, `create_playlist()` 抽象メソッド追加
 - [x] `AuthenticationError` カスタム例外定義
 
 ---
@@ -49,6 +53,8 @@
 - [x] `add_tracks()`: プレイリストへ楽曲追加（Spotify URI 指定）
 - [x] `remove_tracks()`: プレイリストから楽曲削除
 - [x] `search_track()`: ISRC 検索 → フォールバックで曲名+アーティスト検索
+- [x] `get_all_playlists()`: ユーザーの全プレイリスト取得（ページネーション対応）
+- [x] `create_playlist()`: 新規プレイリスト作成
 - [x] テスト (`tests/test_providers/test_spotify.py`)
 
 ### 2.2 ISRC マッチング (`src/utils/isrc.py`)
@@ -70,6 +76,7 @@
 ### 2.4 エントリーポイント (`src/main.py`)
 
 - [x] 設定読み込み → プロバイダー初期化 → 全プレイリスト同期のオーケストレーション
+- [x] 自動発見パイプライン統合（`auto_discover: true` 時に実行、失敗時は手動設定にフォールバック）
 - [x] logging 設定（INFO/WARNING/ERROR）
 - [x] 終了コード管理（エラー時は非ゼロで終了）
 
@@ -98,6 +105,8 @@
 - [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
 - [x] `search_track()`: Apple Music 検索を利用したフォールバック
 - [x] ISRC 取得方法の調査・実装
+- [x] `get_all_playlists()`: ライブラリページからプレイリスト一覧取得
+- [x] `create_playlist()`: ブラウザ操作でプレイリスト作成
 - [x] テスト (`tests/test_providers/test_apple_music.py`)
 
 ### 3.3 Amazon Music プロバイダー (`src/providers/amazon_music.py`)
@@ -109,6 +118,8 @@
 - [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
 - [x] `search_track()`: Amazon Music 検索を利用したフォールバック
 - [x] ISRC 取得方法の調査・実装（ASIN 経由含む）
+- [x] `get_all_playlists()`: ライブラリページからプレイリスト一覧取得
+- [x] `create_playlist()`: ブラウザ操作でプレイリスト作成
 - [x] テスト (`tests/test_providers/test_amazon_music.py`)
 
 ### 3.4 3サービス間同期の統合テスト
@@ -151,6 +162,27 @@
 - [ ] 全シークレットの GitHub Secrets への登録確認
 - [x] タイムアウト設定（ジョブ全体 10分）
 - [ ] 数日間の安定稼働確認
+
+---
+
+## Phase 5: 全プレイリスト自動同期
+
+### 5.1 自動発見モジュール (`src/discovery.py`)
+
+- [x] `normalize_name()`: プレイリスト名の正規化（NFKC + 小文字化）
+- [x] `collect_all_playlists()`: 全プロバイダーからプレイリスト一覧取得
+- [x] `match_playlists_by_name()`: 名前ベースでクロスサービスマッチング
+- [x] `create_missing_playlists()`: 存在しないサービスにプレイリスト自動作成
+- [x] `merge_with_manual()`: 手動設定（playlists.yaml）との統合（手動が優先）
+- [x] `discover_and_merge_playlists()`: 上記を統合したメインパイプライン
+- [x] 発見結果を `state/discovery_cache.json` にキャッシュ
+- [x] テスト (`tests/test_discovery.py` — 19テスト)
+
+### 5.2 設定・統合
+
+- [x] `config/playlists.yaml` に `auto_discover: true` 追加
+- [x] `config/selectors.yaml` にライブラリページ用・プレイリスト作成用セレクター追加
+- [x] 統合テスト更新（`load_config` 対応）
 
 ---
 
