@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class SpotifyProvider(MusicProvider):
     """Spotify Web API を利用した MusicProvider 実装。"""
 
-    def __init__(self, client_id: str, client_secret: str, redirect_uri: str = "http://localhost:8888/callback"):
+    def __init__(self, client_id: str, client_secret: str, redirect_uri: str = "https://github.com/callback"):
         self._client_id = client_id
         self._client_secret = client_secret
         self._redirect_uri = redirect_uri

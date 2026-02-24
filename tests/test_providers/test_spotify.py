@@ -44,7 +44,7 @@ class TestAuthenticate:
         mock_oauth_cls.assert_called_once_with(
             client_id="test-client-id",
             client_secret="test-client-secret",
-            redirect_uri="http://localhost:8888/callback",
+            redirect_uri="https://github.com/callback",
             scope="playlist-read-private playlist-modify-private playlist-modify-public",
         )
         mock_auth_manager.refresh_access_token.assert_called_once_with("fake-refresh-token")
