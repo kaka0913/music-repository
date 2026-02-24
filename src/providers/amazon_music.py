@@ -265,3 +265,68 @@ class AmazonMusicProvider(MusicProvider):
                 album="",
                 service_ids=service_ids,
             )
+
+    def get_all_playlists(self) -> list[tuple[str, str]]:
+        """ライブラリページからプレイリスト一覧を取得。"""
+        return asyncio.get_event_loop().run_until_complete(
+            self._get_all_playlists_async()
+        )
+
+    async def _get_all_playlists_async(self) -> list[tuple[str, str]]:
+        sel = self._selectors
+        playlists: list[tuple[str, str]] = []
+
+        try:
+            async with browser_context(cookies=self._cookies) as (ctx, page):
+                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="networkidle")
+
+                logged_in = await page.query_selector(sel["logged_in_indicator"])
+                if not logged_in:
+                    raise AuthenticationError("Amazon Music: not logged in. Cookie may be expired.")
+
+                rows = await page.query_selector_all(sel["library_playlist_row"])
+                for row in rows:
+                    name_el = await row.query_selector(sel["library_playlist_name"])
+                    link_el = await row.query_selector(sel["library_playlist_link"])
+
+                    name = (await name_el.inner_text()).strip() if name_el else ""
+                    href = await link_el.get_attribute("href") if link_el else ""
+
+                    if name and href:
+                        if href.startswith("/"):
+                            href = f"https://music.amazon.co.jp{href}"
+                        playlists.append((name, href))
+        except TimeoutError as e:
+            raise ScrapingError(f"Amazon Music: library page load timed out: {e}") from e
+
+        logger.info("Discovered %d playlists from Amazon Music", len(playlists))
+        return playlists
+
+    def create_playlist(self, name: str) -> str:
+        """新しいプレイリストを作成し、その URL を返す。"""
+        return asyncio.get_event_loop().run_until_complete(
+            self._create_playlist_async(name)
+        )
+
+    async def _create_playlist_async(self, name: str) -> str:
+        sel = self._selectors
+
+        try:
+            async with browser_context(cookies=self._cookies) as (ctx, page):
+                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="networkidle")
+
+                new_btn = await page.wait_for_selector(sel["new_playlist_button"], timeout=10000)
+                await new_btn.click()
+
+                name_input = await page.wait_for_selector(sel["new_playlist_name_input"], timeout=10000)
+                await name_input.fill(name)
+
+                confirm_btn = await page.wait_for_selector(sel["new_playlist_confirm"], timeout=10000)
+                await confirm_btn.click()
+                await page.wait_for_load_state("networkidle")
+
+                playlist_url = page.url
+                logger.info("Created Amazon Music playlist '%s' (url=%s)", name, playlist_url)
+                return playlist_url
+        except TimeoutError as e:
+            raise ScrapingError(f"Amazon Music: playlist creation timed out: {e}") from e

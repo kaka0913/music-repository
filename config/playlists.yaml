@@ -1,3 +1,5 @@
+auto_discover: true
+
 playlists:
   - name: "テスト"
     spotify:

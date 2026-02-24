@@ -31,3 +31,11 @@ class MusicProvider(ABC):
     @abstractmethod
     def search_track(self, title: str, artist: str) -> Track | None:
         """曲名+アーティスト名で楽曲を検索（ISRCフォールバック用）。"""
+
+    @abstractmethod
+    def get_all_playlists(self) -> list[tuple[str, str]]:
+        """ユーザーの全プレイリストを取得。[(name, id_or_url), ...] を返す。"""
+
+    @abstractmethod
+    def create_playlist(self, name: str) -> str:
+        """新しい空プレイリストを作成し、その ID/URL を返す。"""

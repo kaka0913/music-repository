@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from src.models import PlaylistConfig
+from src.models import PlaylistConfig, SyncConfig
 
 
 def load_playlists(config_path: str | Path = "config/playlists.yaml") -> list[PlaylistConfig]:
@@ -41,3 +41,21 @@ def load_playlists(config_path: str | Path = "config/playlists.yaml") -> list[Pl
         )
 
     return playlists
+
+
+def load_config(config_path: str | Path = "config/playlists.yaml") -> SyncConfig:
+    """playlists.yaml を読み込み、SyncConfig を返す。"""
+    config_path = Path(config_path)
+    if not config_path.exists():
+        raise FileNotFoundError(f"Config file not found: {config_path}")
+
+    with open(config_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    if not data:
+        raise ValueError("Config file is empty")
+
+    auto_discover = bool(data.get("auto_discover", False))
+    playlists = load_playlists(config_path) if "playlists" in data else []
+
+    return SyncConfig(auto_discover=auto_discover, playlists=playlists)

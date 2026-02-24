@@ -178,3 +178,57 @@ class SpotifyProvider(MusicProvider):
             album=album_data.get("name", "") if isinstance(album_data, dict) else "",
             service_ids={"spotify": item.get("id")},
         )
+
+    @retry_with_backoff()
+    def get_all_playlists(self) -> list[tuple[str, str]]:
+        """ユーザーの全プレイリストを取得。"""
+        sp = self._ensure_authenticated()
+        playlists: list[tuple[str, str]] = []
+        offset = 0
+        limit = 50
+
+        try:
+            while True:
+                results = sp.current_user_playlists(limit=limit, offset=offset)
+                items = results.get("items", [])
+                if not items:
+                    break
+                for item in items:
+                    name = item.get("name", "")
+                    playlist_id = item.get("id", "")
+                    if name and playlist_id:
+                        playlists.append((name, playlist_id))
+                if results.get("next") is None:
+                    break
+                offset += limit
+        except SpotifyException as e:
+            if e.http_status == 429:
+                raise RateLimitError(f"Spotify rate limit exceeded: {e}") from e
+            raise
+        except (ConnectionError, TimeoutError) as e:
+            raise NetworkError(f"Spotify network error: {e}") from e
+
+        logger.info("Discovered %d playlists from Spotify", len(playlists))
+        return playlists
+
+    @retry_with_backoff()
+    def create_playlist(self, name: str) -> str:
+        """新しい空プレイリストを作成し、その ID を返す。"""
+        sp = self._ensure_authenticated()
+        try:
+            user_id = sp.current_user()["id"]
+            result = sp.user_playlist_create(
+                user=user_id,
+                name=name,
+                public=False,
+                description="Auto-created by Music Playlist Hub",
+            )
+            playlist_id = result["id"]
+            logger.info("Created Spotify playlist '%s' (id=%s)", name, playlist_id)
+            return playlist_id
+        except SpotifyException as e:
+            if e.http_status == 429:
+                raise RateLimitError(f"Spotify rate limit exceeded: {e}") from e
+            raise
+        except (ConnectionError, TimeoutError) as e:
+            raise NetworkError(f"Spotify network error: {e}") from e

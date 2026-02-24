@@ -33,3 +33,19 @@ class SyncResult:
     removed: list[Track] = field(default_factory=list)
     unmatched: list[dict] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+
+
+@dataclass
+class PlaylistInfo:
+    """発見されたプレイリスト情報。"""
+
+    name: str
+    service_ids: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
+class SyncConfig:
+    """トップレベルの同期設定。"""
+
+    auto_discover: bool = False
+    playlists: list[PlaylistConfig] = field(default_factory=list)

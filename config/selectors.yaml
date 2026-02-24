@@ -7,6 +7,14 @@ apple_music:
   search_input: "input[type='search']"
   search_result_row: ".search-result-row"
   add_to_playlist_button: "[data-testid='add-to-playlist']"
+  # ライブラリページ用
+  library_playlist_row: ".shelf-grid__body .shelf-grid__list-item"
+  library_playlist_name: ".shelf-grid__list-item__title"
+  library_playlist_link: "a[href*='/playlist/']"
+  # プレイリスト作成用
+  new_playlist_button: "[data-testid='new-playlist-button']"
+  new_playlist_name_input: "[data-testid='playlist-name-input']"
+  new_playlist_confirm: "[data-testid='playlist-create-confirm']"
 
 amazon_music:
   login_url: "https://music.amazon.co.jp"
@@ -17,3 +25,11 @@ amazon_music:
   search_input: "#searchInput"
   search_result_row: ".searchResultRow"
   add_to_playlist_button: ".addToPlaylistButton"
+  # ライブラリページ用
+  library_playlist_row: ".playlistCard"
+  library_playlist_name: ".playlistCard__title"
+  library_playlist_link: "a[href*='/playlists/']"
+  # プレイリスト作成用
+  new_playlist_button: "#createPlaylistButton"
+  new_playlist_name_input: "#playlistNameInput"
+  new_playlist_confirm: "#createPlaylistConfirm"

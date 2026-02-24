@@ -4,7 +4,8 @@ import logging
 import os
 import sys
 
-from src.config_loader import load_playlists
+from src.config_loader import load_config
+from src.discovery import discover_and_merge_playlists
 from src.models import SyncResult
 from src.notification import notify_if_needed
 from src.providers.apple_music import AppleMusicProvider
@@ -63,8 +64,9 @@ def main() -> int:
 
     # 1. 設定読み込み
     try:
-        playlists = load_playlists()
-        logger.info("Loaded %d playlists from config", len(playlists))
+        config = load_config()
+        logger.info("Loaded config (auto_discover=%s, %d manual playlists)",
+                     config.auto_discover, len(config.playlists))
     except Exception as e:
         logger.error("Failed to load config: %s", e)
         return 1
@@ -77,7 +79,19 @@ def main() -> int:
 
     logger.info("Active providers: %s", ", ".join(providers.keys()))
 
-    # 3. 全プレイリスト同期
+    # 3. プレイリスト一覧を決定（自動発見 or 手動設定）
+    if config.auto_discover:
+        logger.info("Auto-discovery enabled. Discovering playlists...")
+        try:
+            playlists = discover_and_merge_playlists(providers, config.playlists)
+            logger.info("Discovered %d playlists to sync", len(playlists))
+        except Exception as e:
+            logger.warning("Discovery failed, falling back to manual config: %s", e)
+            playlists = config.playlists
+    else:
+        playlists = config.playlists
+
+    # 4. 全プレイリスト同期
     results: dict[str, SyncResult] = {}
     has_errors = False
 
@@ -105,7 +119,7 @@ def main() -> int:
             results[playlist.name] = SyncResult(errors=[str(e)])
             has_errors = True
 
-    # 4. 通知（エラー/unmatched がある場合のみ）
+    # 5. 通知（エラー/unmatched がある場合のみ）
     notification_email = os.environ.get("NOTIFICATION_EMAIL")
     gmail_app_password = os.environ.get("GMAIL_APP_PASSWORD")
     if notification_email and gmail_app_password:
