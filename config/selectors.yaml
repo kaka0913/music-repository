@@ -1,0 +1,19 @@
+apple_music:
+  login_url: "https://music.apple.com/login"
+  logged_in_indicator: "[data-testid='user-menu']"
+  playlist_track_row: ".songs-list-row"
+  track_title: ".songs-list-row__song-name"
+  track_artist: ".songs-list-row__by-line"
+  search_input: "input[type='search']"
+  search_result_row: ".search-result-row"
+  add_to_playlist_button: "[data-testid='add-to-playlist']"
+
+amazon_music:
+  login_url: "https://music.amazon.co.jp"
+  logged_in_indicator: "#navbarMusicTitle"
+  playlist_track_row: ".trackRow"
+  track_title: ".trackTitle"
+  track_artist: ".trackArtist"
+  search_input: "#searchInput"
+  search_result_row: ".searchResultRow"
+  add_to_playlist_button: ".addToPlaylistButton"
