@@ -1,0 +1,145 @@
+from __future__ import annotations
+
+import logging
+
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
+from src.models import Track
+from src.providers.base import AuthenticationError, MusicProvider
+from src.utils.secret_manager import get_secret
+
+logger = logging.getLogger(__name__)
+
+
+class SpotifyProvider(MusicProvider):
+    """Spotify Web API を利用した MusicProvider 実装。"""
+
+    def __init__(self, client_id: str, client_secret: str, redirect_uri: str = "http://localhost:8888/callback"):
+        self._client_id = client_id
+        self._client_secret = client_secret
+        self._redirect_uri = redirect_uri
+        self._sp: spotipy.Spotify | None = None
+
+    def authenticate(self) -> None:
+        """Secret Manager からリフレッシュトークンを取得し、spotipy クライアントを初期化。"""
+        try:
+            refresh_token = get_secret("spotify-refresh-token")
+            auth_manager = SpotifyOAuth(
+                client_id=self._client_id,
+                client_secret=self._client_secret,
+                redirect_uri=self._redirect_uri,
+                scope="playlist-read-private playlist-modify-private playlist-modify-public",
+            )
+            # リフレッシュトークンで新しいアクセストークンを取得
+            token_info = auth_manager.refresh_access_token(refresh_token)
+            self._sp = spotipy.Spotify(auth=token_info["access_token"])
+            logger.info("Spotify authentication successful")
+        except Exception as e:
+            raise AuthenticationError(f"Spotify authentication failed: {e}") from e
+
+    def _ensure_authenticated(self) -> spotipy.Spotify:
+        if self._sp is None:
+            raise AuthenticationError("Spotify client not initialized. Call authenticate() first.")
+        return self._sp
+
+    def get_playlist_tracks(self, playlist_id: str) -> list[Track]:
+        """プレイリストの全楽曲を取得。ページネーション対応。"""
+        sp = self._ensure_authenticated()
+        tracks: list[Track] = []
+        offset = 0
+        limit = 100
+
+        while True:
+            results = sp.playlist_items(
+                playlist_id, offset=offset, limit=limit,
+                fields="items(added_at,track(name,artists,album,external_ids,uri,id)),next"
+            )
+            items = results.get("items", [])
+            if not items:
+                break
+
+            for item in items:
+                track_data = item.get("track")
+                if not track_data:
+                    continue
+
+                isrc = None
+                external_ids = track_data.get("external_ids", {})
+                if external_ids:
+                    isrc = external_ids.get("isrc")
+
+                artists = track_data.get("artists", [])
+                artist_name = artists[0]["name"] if artists else "Unknown"
+
+                album_data = track_data.get("album", {})
+                album_name = album_data.get("name", "") if isinstance(album_data, dict) else ""
+
+                tracks.append(Track(
+                    isrc=isrc,
+                    title=track_data.get("name", ""),
+                    artist=artist_name,
+                    album=album_name,
+                    service_ids={"spotify": track_data.get("id")},
+                    added_at=item.get("added_at"),
+                ))
+
+            if results.get("next") is None:
+                break
+            offset += limit
+
+        logger.info("Retrieved %d tracks from Spotify playlist %s", len(tracks), playlist_id)
+        return tracks
+
+    def add_tracks(self, playlist_id: str, tracks: list[Track]) -> None:
+        """プレイリストに楽曲を追加。Spotify URI を指定。"""
+        sp = self._ensure_authenticated()
+        # Spotify API は一度に最大100曲まで
+        uris = []
+        for track in tracks:
+            spotify_id = track.service_ids.get("spotify")
+            if spotify_id:
+                uris.append(f"spotify:track:{spotify_id}")
+
+        for i in range(0, len(uris), 100):
+            batch = uris[i:i + 100]
+            sp.playlist_add_items(playlist_id, batch)
+            logger.info("Added %d tracks to Spotify playlist %s", len(batch), playlist_id)
+
+    def remove_tracks(self, playlist_id: str, tracks: list[Track]) -> None:
+        """プレイリストから楽曲を削除。"""
+        sp = self._ensure_authenticated()
+        uris = []
+        for track in tracks:
+            spotify_id = track.service_ids.get("spotify")
+            if spotify_id:
+                uris.append(f"spotify:track:{spotify_id}")
+
+        for i in range(0, len(uris), 100):
+            batch = uris[i:i + 100]
+            sp.playlist_remove_all_occurrences_of_items(playlist_id, batch)
+            logger.info("Removed %d tracks from Spotify playlist %s", len(batch), playlist_id)
+
+    def search_track(self, title: str, artist: str) -> Track | None:
+        """ISRC 検索 → フォールバックで曲名+アーティスト検索。"""
+        sp = self._ensure_authenticated()
+        query = f"track:{title} artist:{artist}"
+        results = sp.search(q=query, type="track", limit=1)
+
+        items = results.get("tracks", {}).get("items", [])
+        if not items:
+            return None
+
+        item = items[0]
+        isrc = item.get("external_ids", {}).get("isrc")
+        artists = item.get("artists", [])
+        artist_name = artists[0]["name"] if artists else "Unknown"
+        album_data = item.get("album", {})
+
+        return Track(
+            isrc=isrc,
+            title=item.get("name", ""),
+            artist=artist_name,
+            album=album_data.get("name", "") if isinstance(album_data, dict) else "",
+            service_ids={"spotify": item.get("id")},
+        )
