@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-from src.config_loader import load_playlists
-from src.models import PlaylistConfig
+from src.config_loader import load_config, load_playlists
+from src.models import PlaylistConfig, SyncConfig
 
 
 class TestLoadPlaylists:
@@ -116,3 +116,70 @@ class TestLoadPlaylists:
 
         with pytest.raises(ValueError, match="Duplicate playlist name"):
             load_playlists(config_file)
+
+
+class TestLoadConfig:
+    """load_config 関数のテストスイート。"""
+
+    def test_load_config_with_auto_discover(self, tmp_path: Path) -> None:
+        """auto_discover: true を含む設定を正しく読み込む。"""
+        config_data = {
+            "auto_discover": True,
+            "playlists": [
+                {"name": "Test", "spotify": {"playlist_id": "sp1"}},
+            ],
+        }
+
+        config_file = tmp_path / "playlists.yaml"
+        with open(config_file, "w", encoding="utf-8") as f:
+            yaml.dump(config_data, f, allow_unicode=True)
+
+        result = load_config(config_file)
+
+        assert isinstance(result, SyncConfig)
+        assert result.auto_discover is True
+        assert len(result.playlists) == 1
+        assert result.playlists[0].name == "Test"
+
+    def test_load_config_without_auto_discover(self, tmp_path: Path) -> None:
+        """auto_discover が未設定の場合は False になる。"""
+        config_data = {
+            "playlists": [
+                {"name": "Test", "spotify": {"playlist_id": "sp1"}},
+            ],
+        }
+
+        config_file = tmp_path / "playlists.yaml"
+        with open(config_file, "w", encoding="utf-8") as f:
+            yaml.dump(config_data, f, allow_unicode=True)
+
+        result = load_config(config_file)
+
+        assert result.auto_discover is False
+        assert len(result.playlists) == 1
+
+    def test_load_config_without_playlists(self, tmp_path: Path) -> None:
+        """playlists キーがない場合は空リスト。"""
+        config_data = {"auto_discover": True}
+
+        config_file = tmp_path / "playlists.yaml"
+        with open(config_file, "w", encoding="utf-8") as f:
+            yaml.dump(config_data, f, allow_unicode=True)
+
+        result = load_config(config_file)
+
+        assert result.auto_discover is True
+        assert result.playlists == []
+
+    def test_load_config_file_not_found(self) -> None:
+        """存在しないパスで FileNotFoundError。"""
+        with pytest.raises(FileNotFoundError):
+            load_config("/nonexistent/path.yaml")
+
+    def test_load_config_empty_file(self, tmp_path: Path) -> None:
+        """空ファイルで ValueError。"""
+        config_file = tmp_path / "playlists.yaml"
+        config_file.write_text("")
+
+        with pytest.raises(ValueError, match="Config file is empty"):
+            load_config(config_file)

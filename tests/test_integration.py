@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.models import PlaylistConfig, SyncResult, Track
+from src.models import PlaylistConfig, SyncConfig, SyncResult, Track
 from src.providers.base import MusicProvider
 from src.sync_engine import sync_playlist
 
@@ -386,6 +386,7 @@ class TestMainOrchestration:
                 spotify={"playlist_id": "sp_1"},
             )
         ]
+        mock_config = SyncConfig(auto_discover=False, playlists=mock_playlists)
         mock_result = SyncResult(added=[], removed=[], unmatched=[], errors=[])
 
         monkeypatch.setenv("SPOTIFY_CLIENT_ID", "test_id")
@@ -396,7 +397,7 @@ class TestMainOrchestration:
         mock_provider = MagicMock(spec=MusicProvider)
 
         with (
-            patch("src.main.load_playlists", return_value=mock_playlists) as m_load,
+            patch("src.main.load_config", return_value=mock_config) as m_load,
             patch(
                 "src.main.init_providers",
                 return_value={"spotify": mock_provider},
@@ -425,6 +426,7 @@ class TestMainOrchestration:
                 spotify={"playlist_id": "sp_1"},
             )
         ]
+        mock_config = SyncConfig(auto_discover=False, playlists=mock_playlists)
         mock_result = SyncResult(
             added=[],
             removed=[],
@@ -438,7 +440,7 @@ class TestMainOrchestration:
         mock_provider = MagicMock(spec=MusicProvider)
 
         with (
-            patch("src.main.load_playlists", return_value=mock_playlists),
+            patch("src.main.load_config", return_value=mock_config),
             patch(
                 "src.main.init_providers",
                 return_value={"spotify": mock_provider},
@@ -458,7 +460,7 @@ class TestMainOrchestration:
         monkeypatch.delenv("GMAIL_APP_PASSWORD", raising=False)
 
         with patch(
-            "src.main.load_playlists",
+            "src.main.load_config",
             side_effect=FileNotFoundError("config not found"),
         ):
             exit_code = main()
@@ -472,12 +474,13 @@ class TestMainOrchestration:
         mock_playlists = [
             PlaylistConfig(name="pl1", spotify={"playlist_id": "sp_1"})
         ]
+        mock_config = SyncConfig(auto_discover=False, playlists=mock_playlists)
 
         monkeypatch.delenv("NOTIFICATION_EMAIL", raising=False)
         monkeypatch.delenv("GMAIL_APP_PASSWORD", raising=False)
 
         with (
-            patch("src.main.load_playlists", return_value=mock_playlists),
+            patch("src.main.load_config", return_value=mock_config),
             patch("src.main.init_providers", return_value={}),
         ):
             exit_code = main()
@@ -491,6 +494,7 @@ class TestMainOrchestration:
         mock_playlists = [
             PlaylistConfig(name="pl1", spotify={"playlist_id": "sp_1"})
         ]
+        mock_config = SyncConfig(auto_discover=False, playlists=mock_playlists)
         mock_result = SyncResult(
             added=[],
             removed=[],
@@ -504,7 +508,7 @@ class TestMainOrchestration:
         mock_provider = MagicMock(spec=MusicProvider)
 
         with (
-            patch("src.main.load_playlists", return_value=mock_playlists),
+            patch("src.main.load_config", return_value=mock_config),
             patch(
                 "src.main.init_providers",
                 return_value={"spotify": mock_provider},
