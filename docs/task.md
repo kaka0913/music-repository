@@ -77,7 +77,7 @@
 
 - [x] `.github/workflows/sync.yml` 作成（Python セットアップ、依存インストール、GCP 認証、同期実行、state コミット）
 - [x] `workflow_dispatch` で手動実行可能にする
-- [ ] Spotify のみで E2E 動作確認
+- [x] Spotify のみで E2E 動作確認
 
 ---
 
@@ -97,7 +97,7 @@
 - [x] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
 - [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
 - [x] `search_track()`: Apple Music 検索を利用したフォールバック
-- [ ] ISRC 取得方法の調査・実装
+- [x] ISRC 取得方法の調査・実装
 - [x] テスト (`tests/test_providers/test_apple_music.py`)
 
 ### 3.3 Amazon Music プロバイダー (`src/providers/amazon_music.py`)
@@ -108,7 +108,7 @@
 - [x] `add_tracks()`: 検索 → プレイリストに追加のブラウザ操作
 - [x] `remove_tracks()`: プレイリストから削除のブラウザ操作
 - [x] `search_track()`: Amazon Music 検索を利用したフォールバック
-- [ ] ISRC 取得方法の調査・実装（ASIN 経由含む）
+- [x] ISRC 取得方法の調査・実装（ASIN 経由含む）
 - [x] テスト (`tests/test_providers/test_amazon_music.py`)
 
 ### 3.4 3サービス間同期の統合テスト

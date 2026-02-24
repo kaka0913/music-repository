@@ -1,19 +1,11 @@
 playlists:
-  - name: "Favorites 2025"
+  - name: "テスト"
     spotify:
-      playlist_id: "37i9dQZF1DXcBWIGoYBM5M"
-    apple_music:
-      playlist_url: "https://music.apple.com/jp/playlist/favorites-2025/pl.example1"
-    amazon_music:
-      playlist_url: "https://music.amazon.co.jp/user-playlists/example1"
-
-  - name: "Workout Mix"
-    spotify:
-      playlist_id: "5ABHKGoOzxkaa28ttQV9sE"
-    apple_music:
-      playlist_url: "https://music.apple.com/jp/playlist/workout-mix/pl.example2"
-    amazon_music:
-      playlist_url: "https://music.amazon.co.jp/user-playlists/example2"
+      playlist_id: "1q7MQFhtr0yzVfs1DW3wUr"
+    # apple_music:
+    #   playlist_url: ""
+    # amazon_music:
+    #   playlist_url: ""
 
 notification:
   email: "user@example.com"
