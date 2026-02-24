@@ -159,9 +159,8 @@
 
 - [x] Cron スケジュール有効化（毎日 AM3:00 UTC）
 - [x] Playwright ブラウザインストールステップ追加
-- [ ] 全シークレットの GitHub Secrets への登録確認
 - [x] タイムアウト設定（ジョブ全体 10分）
-- [ ] 数日間の安定稼働確認
+- → 残りのシークレット登録・安定稼働確認は Phase 6 に移動
 
 ---
 
@@ -183,6 +182,35 @@
 - [x] `config/playlists.yaml` に `auto_discover: true` 追加
 - [x] `config/selectors.yaml` にライブラリページ用・プレイリスト作成用セレクター追加
 - [x] 統合テスト更新（`load_config` 対応）
+
+---
+
+## Phase 6: デプロイ・安定稼働
+
+### 6.1 セレクター実地検証
+
+- [ ] Apple Music ライブラリページのセレクター検証・修正（`library_playlist_row`, `library_playlist_name`, `library_playlist_link`）
+- [ ] Apple Music プレイリスト作成のセレクター検証・修正（`new_playlist_button`, `new_playlist_name_input`, `new_playlist_confirm`）
+- [ ] Amazon Music ライブラリページのセレクター検証・修正
+- [ ] Amazon Music プレイリスト作成のセレクター検証・修正
+- [ ] `workflow_dispatch` で手動実行し、自動発見パイプラインの動作確認
+
+### 6.2 GitHub Secrets 登録確認
+
+- [ ] `GCP_SA_KEY`（サービスアカウントキー JSON）
+- [ ] `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET`
+- [ ] `NOTIFICATION_EMAIL` / `GMAIL_APP_PASSWORD`
+- [ ] GCP Secret Manager 側: `spotify-refresh-token`, `apple-music-cookie`, `amazon-music-cookie`
+
+### 6.3 GitHub Actions タイムアウト見直し
+
+- [ ] 自動発見で3サービスのライブラリ巡回が追加されたため、タイムアウトを10分→20分に拡大を検討
+
+### 6.4 安定稼働確認
+
+- [ ] cron 自動実行を数日間モニタリング
+- [ ] エラー通知メールが正しく届くか確認
+- [ ] state/ の差分が正しく git commit されるか確認
 
 ---
 
