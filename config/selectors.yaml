@@ -1,35 +1,67 @@
+# =============================================================================
+# CSS セレクタ定義
+# =============================================================================
+#
+# 重要: Apple Music は Web Components (Stencil/Ember.js) + Shadow DOM、
+#        Amazon Music は React + 動的クラス名を使用しているため、
+#        セレクタは頻繁に変更される可能性があります。
+#
+# 検証手順:
+#   1. python tools/verify_selectors.py --service all --suggest --no-headless
+#   2. NG のセレクタを suggestion の結果で更新
+#   3. 再度 verify_selectors.py で確認
+#
+# セレクタが全滅する場合は Cookie 有効期限切れの可能性もあります。
+# その場合は python tools/refresh_cookie.py --service <service> を実行してください。
+# =============================================================================
+
 apple_music:
+  # --- 認証 ---
   login_url: "https://music.apple.com/login"
-  logged_in_indicator: "[data-testid='user-menu']"
-  playlist_track_row: ".songs-list-row"
-  track_title: ".songs-list-row__song-name"
-  track_artist: ".songs-list-row__by-line"
-  search_input: "input[type='search']"
-  search_result_row: ".search-result-row"
-  add_to_playlist_button: "[data-testid='add-to-playlist']"
-  # ライブラリページ用
-  library_playlist_row: ".shelf-grid__body .shelf-grid__list-item"
-  library_playlist_name: ".shelf-grid__list-item__title"
+  logged_in_indicator: ".web-navigation__auth-button, [class*='user'], [data-testid='user-menu']"
+
+  # --- プレイリストページ ---
+  playlist_track_row: ".songs-list-row, [class*='songs-list'] [role='row']"
+  track_title: ".songs-list-row__song-name, [class*='song-name']"
+  track_artist: ".songs-list-row__by-line, [class*='by-line']"
+
+  # --- 検索 ---
+  search_input: "input[type='search'], [class*='search'] input, [aria-label*='Search'] input"
+  search_result_row: ".search-result-row, [class*='search-result'] [role='listitem']"
+  add_to_playlist_button: "[data-testid='add-to-playlist'], [aria-label*='Add to Playlist'], [class*='add-to-playlist']"
+
+  # --- ライブラリページ ---
+  library_playlist_row: ".shelf-grid__body .shelf-grid__list-item, [class*='grid'] [class*='list-item']"
+  library_playlist_name: ".shelf-grid__list-item__title, [class*='list-item'] [class*='title']"
   library_playlist_link: "a[href*='/playlist/']"
-  # プレイリスト作成用
-  new_playlist_button: "[data-testid='new-playlist-button']"
-  new_playlist_name_input: "[data-testid='playlist-name-input']"
-  new_playlist_confirm: "[data-testid='playlist-create-confirm']"
+
+  # --- プレイリスト作成 ---
+  new_playlist_button: "[data-testid='new-playlist-button'], [aria-label*='New Playlist'], button[class*='new-playlist']"
+  new_playlist_name_input: "[data-testid='playlist-name-input'], input[placeholder*='Playlist'], input[aria-label*='Playlist']"
+  new_playlist_confirm: "[data-testid='playlist-create-confirm'], button[type='submit'], [class*='confirm']"
 
 amazon_music:
+  # --- 認証 ---
   login_url: "https://music.amazon.co.jp"
-  logged_in_indicator: "#navbarMusicTitle"
-  playlist_track_row: ".trackRow"
-  track_title: ".trackTitle"
-  track_artist: ".trackArtist"
-  search_input: "#searchInput"
-  search_result_row: ".searchResultRow"
-  add_to_playlist_button: ".addToPlaylistButton"
-  # ライブラリページ用
-  library_playlist_row: ".playlistCard"
-  library_playlist_name: ".playlistCard__title"
-  library_playlist_link: "a[href*='/playlists/']"
-  # プレイリスト作成用
-  new_playlist_button: "#createPlaylistButton"
-  new_playlist_name_input: "#playlistNameInput"
-  new_playlist_confirm: "#createPlaylistConfirm"
+  logged_in_indicator: "#navbarMusicTitle, [class*='navbar'] [class*='title'], [class*='NavigationHeader']"
+
+  # --- プレイリストページ ---
+  # Amazon Music は React で動的クラス名を生成するため、部分一致セレクタを使用
+  playlist_track_row: "[class*='trackList'] [class*='row'], [class*='Track'][role='row'], .trackRow"
+  track_title: "[class*='trackList'] [class*='title'], [class*='TrackTitle'], .trackTitle"
+  track_artist: "[class*='trackList'] [class*='artist'], [class*='TrackArtist'], .trackArtist"
+
+  # --- 検索 ---
+  search_input: "input[type='search'], #searchInput, [class*='search'] input, [aria-label*='検索'] input"
+  search_result_row: "[class*='searchResult'] [class*='row'], [class*='SearchResult'], .searchResultRow"
+  add_to_playlist_button: "[class*='addToPlaylist'], button[aria-label*='Add'], .addToPlaylistButton"
+
+  # --- ライブラリページ ---
+  library_playlist_row: "[class*='playlistCard'], [class*='PlaylistCard'], [class*='playlist'] [class*='card']"
+  library_playlist_name: "[class*='playlistCard'] [class*='title'], [class*='PlaylistCard'] [class*='Title']"
+  library_playlist_link: "a[href*='/playlists/'], a[href*='/playlist/']"
+
+  # --- プレイリスト作成 ---
+  new_playlist_button: "#createPlaylistButton, button[class*='createPlaylist'], [aria-label*='プレイリストを作成']"
+  new_playlist_name_input: "#playlistNameInput, input[class*='playlistName'], input[placeholder*='プレイリスト']"
+  new_playlist_confirm: "#createPlaylistConfirm, button[class*='createConfirm'], button[type='submit']"
