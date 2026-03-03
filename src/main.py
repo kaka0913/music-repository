@@ -170,7 +170,7 @@ def main(dry_run: bool = False, verbose: bool = False) -> int:
     if config.auto_discover:
         logger.info("Auto-discovery enabled. Discovering playlists...")
         try:
-            playlists = discover_and_merge_playlists(providers, config.playlists)
+            playlists = discover_and_merge_playlists(providers, config.playlists, dry_run=dry_run)
             logger.info("Discovered %d playlists to sync", len(playlists))
         except Exception as e:
             logger.warning("Discovery failed, falling back to manual config: %s", e)

@@ -63,16 +63,24 @@ def match_playlists_by_name(
 def create_missing_playlists(
     matched: list[PlaylistInfo],
     providers: dict[str, MusicProvider],
+    dry_run: bool = False,
 ) -> list[PlaylistInfo]:
     """存在しないサービスにプレイリストを自動作成。
 
     全 provider に対して、まだ service_ids に含まれていないサービスのプレイリストを作成する。
+    dry_run=True の場合はログ出力のみで実際の作成は行わない。
     """
     service_names = set(providers.keys())
 
     for info in matched:
         missing = service_names - set(info.service_ids.keys())
         for service_name in missing:
+            if dry_run:
+                logger.info(
+                    "DRY RUN: Would create playlist '%s' on %s (skipped)",
+                    info.name, service_name,
+                )
+                continue
             try:
                 new_id = providers[service_name].create_playlist(info.name)
                 info.service_ids[service_name] = new_id
@@ -149,12 +157,13 @@ def save_discovery_cache(discovered: list[PlaylistInfo]) -> None:
 def discover_and_merge_playlists(
     providers: dict[str, MusicProvider],
     manual_playlists: list[PlaylistConfig],
+    dry_run: bool = False,
 ) -> list[PlaylistConfig]:
     """自動発見パイプラインのメインエントリポイント。
 
     1. 全プロバイダーからプレイリスト一覧を取得
     2. 名前ベースでマッチング
-    3. 存在しないサービスにプレイリストを自動作成
+    3. 存在しないサービスにプレイリストを自動作成 (dry_run 時はスキップ)
     4. 手動設定と統合
     5. キャッシュ保存
     """
@@ -165,7 +174,7 @@ def discover_and_merge_playlists(
     matched = match_playlists_by_name(all_playlists)
 
     # 3. 不足分を作成
-    matched = create_missing_playlists(matched, providers)
+    matched = create_missing_playlists(matched, providers, dry_run=dry_run)
 
     # 4. キャッシュ保存
     save_discovery_cache(matched)
