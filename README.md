@@ -51,18 +51,6 @@ playwright install chromium
 | `apple-music-cookie` | GCP Secret Manager | Apple Music 認証 |
 | `amazon-music-cookie` | GCP Secret Manager | Amazon Music 認証 |
 
-### ローカル実行
-
-```bash
-# dry-run (変更なし、確認のみ)
-GCP_PROJECT_ID=music-playlist-hub \
-SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... \
-python -m src.main --dry-run -v
-
-# 本番実行
-python -m src.main
-```
-
 ## 運用
 
 - **自動実行**: GitHub Actions で毎日 UTC 3:00 (JST 12:00)
