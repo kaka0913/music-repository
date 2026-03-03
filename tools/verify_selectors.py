@@ -49,7 +49,7 @@ SELECTOR_GROUPS: dict[str, dict[str, list[str]]] = {
             "library_playlist_row",
             "library_playlist_name",
             "library_playlist_link",
-            "new_playlist_button",
+            # new_playlist_button: Apple Music Web はプレイリスト作成非対応のため検証対象外
         ],
         "playlist": [
             "playlist_track_row",

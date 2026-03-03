@@ -31,37 +31,42 @@ apple_music:
   add_to_playlist_button: "[data-testid='add-to-playlist'], [aria-label*='Add to Playlist'], [class*='add-to-playlist']"
 
   # --- ライブラリページ ---
-  library_playlist_row: ".shelf-grid__body .shelf-grid__list-item, [class*='grid'] [class*='list-item']"
-  library_playlist_name: ".shelf-grid__list-item__title, [class*='list-item'] [class*='title']"
+  library_playlist_row: "[class*='playlist'], [data-testid*='playlist'], a[href*='playlist']"
+  library_playlist_name: "[data-testid*='title'], [class*='playlist'] [class*='title']"
   library_playlist_link: "a[href*='/playlist/']"
 
   # --- プレイリスト作成 ---
-  new_playlist_button: "[data-testid='new-playlist-button'], [aria-label*='New Playlist'], button[class*='new-playlist']"
-  new_playlist_name_input: "[data-testid='playlist-name-input'], input[placeholder*='Playlist'], input[aria-label*='Playlist']"
-  new_playlist_confirm: "[data-testid='playlist-create-confirm'], button[type='submit'], [class*='confirm']"
+  # Apple Music Web はプレイリスト作成非対応。create_playlist() は ScrapingError を送出する。
+  # 新規プレイリストは Apple Music アプリ (iOS/Mac) で手動作成が必要。
 
 amazon_music:
   # --- 認証 ---
   login_url: "https://music.amazon.co.jp"
-  logged_in_indicator: "#navbarMusicTitle, [class*='navbar'] [class*='title'], [class*='NavigationHeader']"
+  # nav#music-navbar と #accountSetting はログイン済みページで存在する要素
+  logged_in_indicator: "nav#music-navbar, #accountSetting, #navbarMusicLogo"
 
   # --- プレイリストページ ---
-  # Amazon Music は React で動的クラス名を生成するため、部分一致セレクタを使用
-  playlist_track_row: "[class*='trackList'] [class*='row'], [class*='Track'][role='row'], .trackRow"
-  track_title: "[class*='trackList'] [class*='title'], [class*='TrackTitle'], .trackTitle"
-  track_artist: "[class*='trackList'] [class*='artist'], [class*='TrackArtist'], .trackArtist"
+  # Amazon Music は Web Components (music-*) + Shadow DOM を使用。
+  # Playwright の CSS セレクタは Shadow DOM を自動透過する。
+  # ライブラリ = music-vertical-item、プレイリスト内トラック = music-image-row
+  # コンテンツは遅延ロードされるため、wait_for_selector 等で待機が必要。
+  playlist_track_row: "music-image-row"
+  track_title: "music-link:not([kind])"
+  track_artist: "music-link[kind='secondary']"
 
   # --- 検索 ---
-  search_input: "input[type='search'], #searchInput, [class*='search'] input, [aria-label*='検索'] input"
-  search_result_row: "[class*='searchResult'] [class*='row'], [class*='SearchResult'], .searchResultRow"
-  add_to_playlist_button: "[class*='addToPlaylist'], button[aria-label*='Add'], .addToPlaylistButton"
+  search_input: "#navbarSearchInput, input[type='search'], [class*='search'] input"
+  search_result_row: "music-vertical-item, [class*='searchResult'] [class*='row']"
+  add_to_playlist_button: "music-button[icon-name='add'], [class*='addToPlaylist']"
 
   # --- ライブラリページ ---
-  library_playlist_row: "[class*='playlistCard'], [class*='PlaylistCard'], [class*='playlist'] [class*='card']"
-  library_playlist_name: "[class*='playlistCard'] [class*='title'], [class*='PlaylistCard'] [class*='Title']"
+  # music-vertical-item が各プレイリストカード。primary-text 属性にプレイリスト名を持つ。
+  library_playlist_row: "music-vertical-item"
+  library_playlist_name: "music-link"
   library_playlist_link: "a[href*='/playlists/'], a[href*='/playlist/']"
 
   # --- プレイリスト作成 ---
-  new_playlist_button: "#createPlaylistButton, button[class*='createPlaylist'], [aria-label*='プレイリストを作成']"
-  new_playlist_name_input: "#playlistNameInput, input[class*='playlistName'], input[placeholder*='プレイリスト']"
-  new_playlist_confirm: "#createPlaylistConfirm, button[class*='createConfirm'], button[type='submit']"
+  # music-button[icon-name='add'] = 「プレイリストを作成」ボタン
+  new_playlist_button: "music-button[icon-name='add']"
+  new_playlist_name_input: "input[type='text'], input[placeholder*='プレイリスト'], input[placeholder*='Playlist']"
+  new_playlist_confirm: "music-button[variant='accent'], button[type='submit']"

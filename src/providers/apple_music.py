@@ -258,8 +258,20 @@ class AppleMusicProvider(MusicProvider):
         playlists: list[tuple[str, str]] = []
 
         try:
-            async with browser_context(cookies=self._cookies) as (ctx, page):
-                await page.goto("https://music.apple.com/library/playlists", wait_until="networkidle")
+            async with browser_context(cookies=self._cookies, timeout=60_000) as (ctx, page):
+                try:
+                    await page.goto("https://music.apple.com/library/playlists", wait_until="domcontentloaded", timeout=60_000)
+                except Exception:
+                    pass
+
+                # SPA レンダリング待機: domcontentloaded 後に JS がコンテンツを生成するため
+                await asyncio.sleep(10)
+
+                # セレクターの出現を待機
+                try:
+                    await page.wait_for_selector(sel["library_playlist_row"], timeout=30_000)
+                except Exception:
+                    logger.debug("Apple Music: library_playlist_row selector not found within timeout")
 
                 logged_in = await page.query_selector(sel["logged_in_indicator"])
                 if not logged_in:
@@ -274,10 +286,21 @@ class AppleMusicProvider(MusicProvider):
                     href = await link_el.get_attribute("href") if link_el else ""
 
                     if name and href:
-                        # 相対パスの場合はフル URL に変換
                         if href.startswith("/"):
                             href = f"https://music.apple.com{href}"
                         playlists.append((name, href))
+
+                # メインコンテンツが空の場合、サイドバーのプレイリストリンクを取得
+                if not playlists:
+                    logger.debug("Apple Music: main content empty, trying sidebar navigation")
+                    sidebar_links = await page.query_selector_all("a[href*='/library/playlist/']")
+                    for link in sidebar_links:
+                        name = (await link.inner_text()).strip()
+                        href = await link.get_attribute("href") or ""
+                        if name and href and "/all-playlists" not in href:
+                            if href.startswith("/"):
+                                href = f"https://music.apple.com{href}"
+                            playlists.append((name, href))
         except TimeoutError as e:
             raise ScrapingError(f"Apple Music: library page load timed out: {e}") from e
 
@@ -285,34 +308,12 @@ class AppleMusicProvider(MusicProvider):
         return playlists
 
     def create_playlist(self, name: str) -> str:
-        """新しいプレイリストを作成し、その URL を返す。"""
-        return asyncio.get_event_loop().run_until_complete(
-            self._create_playlist_async(name)
+        """新しいプレイリストを作成し、その URL を返す。
+
+        Apple Music Web はプレイリスト作成機能を提供していないため、
+        ScrapingError を送出してスキップさせる。
+        """
+        raise ScrapingError(
+            f"Apple Music: Web 版ではプレイリスト作成がサポートされていません。"
+            f"プレイリスト '{name}' は Apple Music アプリ (iOS/Mac) で手動作成してください。"
         )
-
-    async def _create_playlist_async(self, name: str) -> str:
-        sel = self._selectors
-
-        try:
-            async with browser_context(cookies=self._cookies) as (ctx, page):
-                await page.goto("https://music.apple.com/library/playlists", wait_until="networkidle")
-
-                # 新規プレイリストボタンをクリック
-                new_btn = await page.wait_for_selector(sel["new_playlist_button"], timeout=10000)
-                await new_btn.click()
-
-                # プレイリスト名を入力
-                name_input = await page.wait_for_selector(sel["new_playlist_name_input"], timeout=10000)
-                await name_input.fill(name)
-
-                # 作成確定
-                confirm_btn = await page.wait_for_selector(sel["new_playlist_confirm"], timeout=10000)
-                await confirm_btn.click()
-                await page.wait_for_load_state("networkidle")
-
-                # 作成後の URL を取得
-                playlist_url = page.url
-                logger.info("Created Apple Music playlist '%s' (url=%s)", name, playlist_url)
-                return playlist_url
-        except TimeoutError as e:
-            raise ScrapingError(f"Apple Music: playlist creation timed out: {e}") from e

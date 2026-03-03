@@ -130,6 +130,10 @@ class AmazonMusicProvider(MusicProvider):
                     title = (await title_el.inner_text()).strip() if title_el else ""
                     artist = (await artist_el.inner_text()).strip() if artist_el else ""
 
+                    # 遅延ロード未完了の空行をスキップ
+                    if not title:
+                        continue
+
                     # API レスポンスから ISRC/ASIN を照合
                     meta = api_track_map.get(title.lower(), {})
                     isrc = meta.get("isrc")

@@ -191,19 +191,20 @@
 
 - [x] セレクター検証ツール作成（`tools/verify_selectors.py`）— `--suggest` モードで代替候補提案機能付き
 - [x] `config/selectors.yaml` をフォールバック付きカンマ区切りセレクタに更新（両サービス対応）
-- [ ] Apple Music ライブラリページのセレクター検証・修正（`python tools/verify_selectors.py --service apple_music --suggest --no-headless`）
-- [ ] Apple Music プレイリスト作成のセレクター検証・修正
-- [ ] Amazon Music ライブラリページのセレクター検証・修正（`python tools/verify_selectors.py --service amazon_music --suggest --no-headless`）
-- [ ] Amazon Music プレイリスト作成のセレクター検証・修正
-- [ ] `workflow_dispatch` で手動実行し、自動発見パイプラインの動作確認（`--dry-run` で事前テスト可）
+- [x] Apple Music ライブラリページのセレクター検証・修正（`python tools/verify_selectors.py --service apple_music --suggest --no-headless`）
+- [x] Apple Music プレイリスト作成のセレクター検証・修正 — Web 版非対応のため `create_playlist()` を ScrapingError 送出に変更
+- [x] Amazon Music ライブラリページのセレクター検証・修正（`python tools/verify_selectors.py --service amazon_music --suggest --no-headless`）
+- [x] Amazon Music プレイリスト作成のセレクター検証・修正 — セレクター検証 OK（Web Components: `music-button[icon-name='add']`）
+- [x] `--dry-run` で自動発見パイプラインの動作確認済み（Amazon 16PL 発見、Apple 3PL サイドバーフォールバック）
+- [ ] `workflow_dispatch` で手動実行し、本番動作確認
 
 ### 6.2 GitHub Secrets 登録確認
 
 - [x] シークレット検証ツール作成（`tools/verify_secrets.py`）
-- [ ] `GCP_SA_KEY`（サービスアカウントキー JSON）— `python tools/verify_secrets.py` で確認
-- [ ] `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET`
-- [ ] `NOTIFICATION_EMAIL` / `GMAIL_APP_PASSWORD`
-- [ ] GCP Secret Manager 側: `spotify-refresh-token`, `apple-music-cookie`, `amazon-music-cookie`
+- [x] `GCP_SA_KEY`（サービスアカウントキー JSON）— 登録済み（SA: `music-sync@music-playlist-hub.iam.gserviceaccount.com`）
+- [x] `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` — 登録済み
+- [x] `NOTIFICATION_EMAIL` / `GMAIL_APP_PASSWORD` — 登録済み（`kabuyuu0913@gmail.com`）
+- [x] GCP Secret Manager 側: `spotify-refresh-token`(v1), `apple-music-cookie`(v2), `amazon-music-cookie`(v2) — 全て enabled
 
 ### 6.3 GitHub Actions タイムアウト見直し
 
