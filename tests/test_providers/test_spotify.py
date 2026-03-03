@@ -45,7 +45,7 @@ class TestAuthenticate:
             client_id="test-client-id",
             client_secret="test-client-secret",
             redirect_uri="https://github.com/callback",
-            scope="playlist-read-private playlist-modify-private playlist-modify-public",
+            scope="playlist-read-private playlist-modify-private playlist-modify-public user-library-read",
         )
         mock_auth_manager.refresh_access_token.assert_called_once_with("fake-refresh-token")
         assert provider._sp is not None

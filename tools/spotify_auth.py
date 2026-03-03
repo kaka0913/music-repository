@@ -23,7 +23,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 REDIRECT_URI = "https://github.com/callback"
-SCOPE = "playlist-read-private playlist-modify-private playlist-modify-public"
+SCOPE = "playlist-read-private playlist-modify-private playlist-modify-public user-library-read"
 
 
 def main() -> None:
