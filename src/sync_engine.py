@@ -207,6 +207,24 @@ def sync_playlist(
     state = load_state(playlist_name)
     previous_tracks = state.get("tracks", [])
 
+    # 初回同期: 前回状態がない場合はベースラインとして保存のみ行い、
+    # クロスサービスの追加/削除はスキップする（大量曲の検索を回避）
+    if not previous_tracks:
+        logger.info("[%s] Initial sync - saving baseline state only (no cross-service sync)", playlist_name)
+        merged_tracks: dict[str, dict] = {}
+        for service_name, tracks in current_tracks_by_service.items():
+            for track in tracks:
+                key = track.isrc or f"_no_isrc_{track.title}_{track.artist}"
+                if key not in merged_tracks:
+                    merged_tracks[key] = _track_to_dict(track)
+                else:
+                    merged_tracks[key]["service_ids"].update(track.service_ids)
+
+        state["tracks"] = list(merged_tracks.values())
+        state["unmatched"] = []
+        save_state(playlist_name, state)
+        return result
+
     diffs_by_service: dict[str, tuple[list[Track], list[dict]]] = {}
     for service_name, tracks in current_tracks_by_service.items():
         added, removed = compute_diff(previous_tracks, tracks)
