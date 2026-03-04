@@ -158,9 +158,10 @@ class AppleMusicProvider(MusicProvider):
                 # 検索ページへ遷移
                 await page.goto("https://music.apple.com/search", wait_until="domcontentloaded")
 
-                search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
-                await search_input.fill(f"{track.title} {track.artist}")
-                await search_input.press("Enter")
+                search_locator = page.locator(sel["search_input"]).first
+                await search_locator.wait_for(state="visible", timeout=15_000)
+                await search_locator.fill(f"{track.title} {track.artist}")
+                await search_locator.press("Enter")
 
                 # 検索結果の表示を待機
                 try:
@@ -237,9 +238,10 @@ class AppleMusicProvider(MusicProvider):
             page.on("response", _on_response)
             await page.goto("https://music.apple.com/search", wait_until="domcontentloaded")
 
-            search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
-            await search_input.fill(f"{title} {artist}")
-            await search_input.press("Enter")
+            search_locator = page.locator(sel["search_input"]).first
+            await search_locator.wait_for(state="visible", timeout=15_000)
+            await search_locator.fill(f"{title} {artist}")
+            await search_locator.press("Enter")
 
             # 検索結果の表示を待機
             try:

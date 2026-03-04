@@ -218,8 +218,8 @@ class SpotifyProvider(MusicProvider):
                 ids.append(spotify_id)
 
         try:
-            for i in range(0, len(ids), 50):
-                batch = ids[i:i + 50]
+            for i in range(0, len(ids), 20):
+                batch = ids[i:i + 20]
                 sp.current_user_saved_tracks_add(batch)
                 logger.info("Added %d tracks to Spotify Liked Songs", len(batch))
         except SpotifyException as e:
@@ -239,8 +239,8 @@ class SpotifyProvider(MusicProvider):
                 ids.append(spotify_id)
 
         try:
-            for i in range(0, len(ids), 50):
-                batch = ids[i:i + 50]
+            for i in range(0, len(ids), 20):
+                batch = ids[i:i + 20]
                 sp.current_user_saved_tracks_delete(batch)
                 logger.info("Removed %d tracks from Spotify Liked Songs", len(batch))
         except SpotifyException as e:
