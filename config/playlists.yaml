@@ -18,7 +18,7 @@ playlists:
   # --- グループ3: ふつうの軽音部 (Amazon 発) ---
   - name: "ふつうの軽音部"
     amazon_music:
-      playlist_url: "https://music.amazon.co.jp/my/playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      playlist_url: "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
 
   # --- グループ4: ＜YBA&BEYOND＞British Sound in 90s (Apple 発) ---
   - name: "＜YBA&BEYOND＞British Sound in 90s"

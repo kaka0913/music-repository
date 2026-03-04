@@ -164,6 +164,7 @@ def _track_to_dict(track: Track) -> dict:
 def sync_playlist(
     playlist_config: PlaylistConfig,
     providers: dict[str, MusicProvider],
+    full_sync: bool = False,
 ) -> SyncResult:
     """1プレイリストの同期を実行する。
 
@@ -209,7 +210,8 @@ def sync_playlist(
 
     # 初回同期: 前回状態がない場合はベースラインとして保存のみ行い、
     # クロスサービスの追加/削除はスキップする（大量曲の検索を回避）
-    if not previous_tracks:
+    # full_sync=True の場合はスキップせず和集合同期を実行
+    if not previous_tracks and not full_sync:
         logger.info("[%s] Initial sync - saving baseline state only (no cross-service sync)", playlist_name)
         merged_tracks: dict[str, dict] = {}
         for service_name, tracks in current_tracks_by_service.items():

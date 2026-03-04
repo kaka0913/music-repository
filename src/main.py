@@ -40,6 +40,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=False,
         help="Set log level to DEBUG for verbose output.",
     )
+    parser.add_argument(
+        "--full-sync",
+        action="store_true",
+        default=False,
+        help="Force full union sync even on first run (skip baseline-only mode).",
+    )
     return parser.parse_args(argv)
 
 
@@ -151,7 +157,7 @@ def _dry_run_playlist(playlist, providers) -> None:
                              track.title, track.artist, track.isrc)
 
 
-def main(dry_run: bool = False, verbose: bool = False) -> int:
+def main(dry_run: bool = False, verbose: bool = False, full_sync: bool = False) -> int:
     """メイン処理。終了コードを返す。"""
     if verbose:
         logging.getLogger().setLevel(logging.DEBUG)
@@ -209,7 +215,7 @@ def main(dry_run: bool = False, verbose: bool = False) -> int:
     for playlist in playlists:
         logger.info("--- Syncing: %s ---", playlist.name)
         try:
-            result = sync_playlist(playlist, providers)
+            result = sync_playlist(playlist, providers, full_sync=full_sync)
             results[playlist.name] = result
 
             if result.errors:
@@ -245,4 +251,4 @@ def main(dry_run: bool = False, verbose: bool = False) -> int:
 
 if __name__ == "__main__":
     args = parse_args()
-    sys.exit(main(dry_run=args.dry_run, verbose=args.verbose))
+    sys.exit(main(dry_run=args.dry_run, verbose=args.verbose, full_sync=args.full_sync))
