@@ -87,6 +87,28 @@ class TestSyncPlaylistFullFlow:
         config = _make_playlist_config()
         providers = _make_providers()
 
+        # 前回状態: Song A のみ存在（ベースライン）
+        # → Song B は Spotify に新たに追加された扱いになる
+        previous_state = {
+            "playlist_name": "test_playlist",
+            "last_synced_at": "2025-06-01T00:00:00+00:00",
+            "tracks": [
+                {
+                    "isrc": "US0000000001",
+                    "title": "Song A",
+                    "artist": "Artist A",
+                    "album": "Album A",
+                    "service_ids": {"spotify": "sp_a", "apple_music": "am_a", "amazon_music": "az_a"},
+                    "added_at": "2025-06-01T00:00:00+00:00",
+                },
+            ],
+            "unmatched": [],
+        }
+        state_file = tmp_path / "test_playlist.json"
+        state_file.write_text(
+            json.dumps(previous_state, ensure_ascii=False), encoding="utf-8"
+        )
+
         # Spotify: A, B を保持
         providers["spotify"].get_playlist_tracks.return_value = [TRACK_A, TRACK_B]
         # Apple Music: A のみ保持 (B が不足)
@@ -275,6 +297,27 @@ class TestSyncPlaylistUnmatched:
         """find_match が None を返す場合、unmatched リストに楽曲情報が記録されることを確認する。"""
         config = _make_playlist_config()
         providers = _make_providers()
+
+        # 前回状態: Song A のみ存在（ベースライン）
+        previous_state = {
+            "playlist_name": "test_playlist",
+            "last_synced_at": "2025-06-01T00:00:00+00:00",
+            "tracks": [
+                {
+                    "isrc": "US0000000001",
+                    "title": "Song A",
+                    "artist": "Artist A",
+                    "album": "Album A",
+                    "service_ids": {"spotify": "sp_a", "apple_music": "am_a", "amazon_music": "az_a"},
+                    "added_at": "2025-06-01T00:00:00+00:00",
+                },
+            ],
+            "unmatched": [],
+        }
+        state_file = tmp_path / "test_playlist.json"
+        state_file.write_text(
+            json.dumps(previous_state, ensure_ascii=False), encoding="utf-8"
+        )
 
         # Spotify: Song A, Song B を保持
         providers["spotify"].get_playlist_tracks.return_value = [TRACK_A, TRACK_B]

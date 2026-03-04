@@ -227,7 +227,13 @@ def sync_playlist(
 
     diffs_by_service: dict[str, tuple[list[Track], list[dict]]] = {}
     for service_name, tracks in current_tracks_by_service.items():
-        added, removed = compute_diff(previous_tracks, tracks)
+        # サービスごとにフィルタリング: 前回そのサービスに存在した曲のみと比較
+        # マージ済みの全曲と比較すると、他サービスのみの曲が「削除」と誤判定される
+        prev_for_service = [
+            t for t in previous_tracks
+            if service_name in (t.get("service_ids") or {})
+        ]
+        added, removed = compute_diff(prev_for_service, tracks)
         diffs_by_service[service_name] = (added, removed)
         logger.info("[%s] %s diff: +%d -%d", playlist_name, service_name, len(added), len(removed))
 

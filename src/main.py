@@ -94,7 +94,7 @@ def _dry_run_playlist(playlist, providers) -> None:
         service_playlist_ids["amazon_music"] = playlist.amazon_music["playlist_url"]
 
     # 各サービスからトラック取得
-    all_current_tracks = []
+    current_by_service: dict[str, list] = {}
     for service_name, playlist_id in service_playlist_ids.items():
         if service_name not in providers:
             logger.debug("DRY RUN: [%s] Skipping %s (provider not available)",
@@ -104,31 +104,44 @@ def _dry_run_playlist(playlist, providers) -> None:
             tracks = providers[service_name].get_playlist_tracks(playlist_id)
             logger.info("DRY RUN: [%s] %s: %d tracks retrieved",
                         playlist_name, service_name, len(tracks))
-            all_current_tracks.extend(tracks)
+            current_by_service[service_name] = tracks
         except Exception as e:
             logger.error("DRY RUN: [%s] %s: Failed to get tracks - %s",
                          playlist_name, service_name, e)
 
-    if not all_current_tracks:
+    if not current_by_service:
         logger.warning("DRY RUN: [%s] No tracks retrieved from any service", playlist_name)
         return
 
-    # 前回状態との差分を計算
+    # 前回状態との差分をサービスごとに計算（sync_engine と同じロジック）
     state = load_state(playlist_name)
     previous_tracks = state.get("tracks", [])
-    added, removed = compute_diff(previous_tracks, all_current_tracks)
+
+    total_added = []
+    total_removed = []
+    for service_name, tracks in current_by_service.items():
+        prev_for_service = [
+            t for t in previous_tracks
+            if service_name in (t.get("service_ids") or {})
+        ]
+        added, removed = compute_diff(prev_for_service, tracks)
+        if added or removed:
+            logger.info("DRY RUN: [%s] %s diff: +%d -%d",
+                        playlist_name, service_name, len(added), len(removed))
+        total_added.extend(added)
+        total_removed.extend(removed)
 
     logger.info(
         "DRY RUN: Would add %d tracks, remove %d tracks for playlist '%s'",
-        len(added), len(removed), playlist_name,
+        len(total_added), len(total_removed), playlist_name,
     )
 
-    if added:
-        for track in added:
+    if total_added:
+        for track in total_added:
             logger.debug("DRY RUN:   + %s - %s (ISRC: %s)",
                          track.title, track.artist, track.isrc)
-    if removed:
-        for track in removed:
+    if total_removed:
+        for track in total_removed:
             if isinstance(track, dict):
                 logger.debug("DRY RUN:   - %s - %s (ISRC: %s)",
                              track.get("title", "?"), track.get("artist", "?"),

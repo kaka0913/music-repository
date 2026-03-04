@@ -110,9 +110,10 @@ class AppleMusicProvider(MusicProvider):
                 except Exception:
                     logger.debug("Apple Music: playlist_track_row not found within timeout")
 
-                # ログイン状態の確認
-                logged_in = await page.query_selector(sel["logged_in_indicator"])
-                if not logged_in:
+                # ログイン状態の確認（SPA レンダリング完了を待機）
+                try:
+                    await page.wait_for_selector(sel["logged_in_indicator"], state="attached", timeout=10_000)
+                except Exception:
                     raise AuthenticationError("Apple Music: not logged in. Cookie may be expired.")
 
                 # トラック行を取得
@@ -295,8 +296,9 @@ class AppleMusicProvider(MusicProvider):
                 except Exception:
                     logger.debug("Apple Music: library_playlist_row selector not found within timeout")
 
-                logged_in = await page.query_selector(sel["logged_in_indicator"])
-                if not logged_in:
+                try:
+                    await page.wait_for_selector(sel["logged_in_indicator"], timeout=10_000)
+                except Exception:
                     raise AuthenticationError("Apple Music: not logged in. Cookie may be expired.")
 
                 rows = await page.query_selector_all(sel["library_playlist_row"])
