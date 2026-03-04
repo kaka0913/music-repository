@@ -149,6 +149,26 @@ class TestAddTracks:
         )
 
 
+    def test_add_tracks_liked(self, provider: SpotifyProvider) -> None:
+        """playlist_id が "liked" の場合、current_user_saved_tracks_add が呼ばれることを確認。"""
+        tracks = [
+            Track(
+                isrc="GBUM71029604",
+                title="Bohemian Rhapsody",
+                artist="Queen",
+                album="A Night at the Opera",
+                service_ids={"spotify": "4u7EnebtmKWzUH433cf5Qv"},
+            ),
+        ]
+
+        provider.add_tracks("liked", tracks)
+
+        provider._sp.current_user_saved_tracks_add.assert_called_once_with(
+            ["4u7EnebtmKWzUH433cf5Qv"],
+        )
+        provider._sp.playlist_add_items.assert_not_called()
+
+
 class TestRemoveTracks:
     """remove_tracks() メソッドのテスト。"""
 
@@ -180,6 +200,25 @@ class TestRemoveTracks:
                 "spotify:track:7pKfPomDEeI4TPT6EOYjn9",
             ],
         )
+
+    def test_remove_tracks_liked(self, provider: SpotifyProvider) -> None:
+        """playlist_id が "liked" の場合、current_user_saved_tracks_delete が呼ばれることを確認。"""
+        tracks = [
+            Track(
+                isrc="GBUM71029604",
+                title="Bohemian Rhapsody",
+                artist="Queen",
+                album="A Night at the Opera",
+                service_ids={"spotify": "4u7EnebtmKWzUH433cf5Qv"},
+            ),
+        ]
+
+        provider.remove_tracks("liked", tracks)
+
+        provider._sp.current_user_saved_tracks_delete.assert_called_once_with(
+            ["4u7EnebtmKWzUH433cf5Qv"],
+        )
+        provider._sp.playlist_remove_all_occurrences_of_items.assert_not_called()
 
 
 class TestSearchTrack:

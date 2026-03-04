@@ -153,7 +153,13 @@ class SpotifyProvider(MusicProvider):
 
     @retry_with_backoff()
     def add_tracks(self, playlist_id: str, tracks: list[Track]) -> None:
-        """プレイリストに楽曲を追加。Spotify URI を指定。"""
+        """プレイリストに楽曲を追加。Spotify URI を指定。
+
+        playlist_id が "liked" の場合、Liked Songs に追加する。
+        """
+        if playlist_id == "liked":
+            return self._add_liked_tracks(tracks)
+
         sp = self._ensure_authenticated()
         # Spotify API は一度に最大100曲まで
         uris = []
@@ -176,7 +182,13 @@ class SpotifyProvider(MusicProvider):
 
     @retry_with_backoff()
     def remove_tracks(self, playlist_id: str, tracks: list[Track]) -> None:
-        """プレイリストから楽曲を削除。"""
+        """プレイリストから楽曲を削除。
+
+        playlist_id が "liked" の場合、Liked Songs から削除する。
+        """
+        if playlist_id == "liked":
+            return self._remove_liked_tracks(tracks)
+
         sp = self._ensure_authenticated()
         uris = []
         for track in tracks:
@@ -189,6 +201,48 @@ class SpotifyProvider(MusicProvider):
                 batch = uris[i:i + 100]
                 sp.playlist_remove_all_occurrences_of_items(playlist_id, batch)
                 logger.info("Removed %d tracks from Spotify playlist %s", len(batch), playlist_id)
+        except SpotifyException as e:
+            if e.http_status == 429:
+                raise RateLimitError(f"Spotify rate limit exceeded: {e}") from e
+            raise
+        except (ConnectionError, TimeoutError) as e:
+            raise NetworkError(f"Spotify network error: {e}") from e
+
+    def _add_liked_tracks(self, tracks: list[Track]) -> None:
+        """Liked Songs に楽曲を追加。"""
+        sp = self._ensure_authenticated()
+        ids = []
+        for track in tracks:
+            spotify_id = track.service_ids.get("spotify")
+            if spotify_id:
+                ids.append(spotify_id)
+
+        try:
+            for i in range(0, len(ids), 50):
+                batch = ids[i:i + 50]
+                sp.current_user_saved_tracks_add(batch)
+                logger.info("Added %d tracks to Spotify Liked Songs", len(batch))
+        except SpotifyException as e:
+            if e.http_status == 429:
+                raise RateLimitError(f"Spotify rate limit exceeded: {e}") from e
+            raise
+        except (ConnectionError, TimeoutError) as e:
+            raise NetworkError(f"Spotify network error: {e}") from e
+
+    def _remove_liked_tracks(self, tracks: list[Track]) -> None:
+        """Liked Songs から楽曲を削除。"""
+        sp = self._ensure_authenticated()
+        ids = []
+        for track in tracks:
+            spotify_id = track.service_ids.get("spotify")
+            if spotify_id:
+                ids.append(spotify_id)
+
+        try:
+            for i in range(0, len(ids), 50):
+                batch = ids[i:i + 50]
+                sp.current_user_saved_tracks_delete(batch)
+                logger.info("Removed %d tracks from Spotify Liked Songs", len(batch))
         except SpotifyException as e:
             if e.http_status == 429:
                 raise RateLimitError(f"Spotify rate limit exceeded: {e}") from e
