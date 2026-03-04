@@ -102,7 +102,13 @@ class AppleMusicProvider(MusicProvider):
         try:
             async with browser_context(cookies=self._cookies) as (ctx, page):
                 page.on("response", _on_response)
-                await page.goto(playlist_url, wait_until="networkidle")
+                await page.goto(playlist_url, wait_until="domcontentloaded")
+
+                # SPA レンダリング待機
+                try:
+                    await page.wait_for_selector(sel["playlist_track_row"], timeout=30_000)
+                except Exception:
+                    logger.debug("Apple Music: playlist_track_row not found within timeout")
 
                 # ログイン状態の確認
                 logged_in = await page.query_selector(sel["logged_in_indicator"])
@@ -150,12 +156,17 @@ class AppleMusicProvider(MusicProvider):
         async with browser_context(cookies=self._cookies) as (ctx, page):
             for track in tracks:
                 # 検索ページへ遷移
-                await page.goto("https://music.apple.com/search", wait_until="networkidle")
+                await page.goto("https://music.apple.com/search", wait_until="domcontentloaded")
 
-                search_input = await page.wait_for_selector(sel["search_input"])
+                search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
                 await search_input.fill(f"{track.title} {track.artist}")
                 await search_input.press("Enter")
-                await page.wait_for_load_state("networkidle")
+
+                # 検索結果の表示を待機
+                try:
+                    await page.wait_for_selector(sel["search_result_row"], timeout=15_000)
+                except Exception:
+                    pass
 
                 # 最初の検索結果を選択
                 result_row = await page.query_selector(sel["search_result_row"])
@@ -177,9 +188,13 @@ class AppleMusicProvider(MusicProvider):
 
     async def _remove_tracks_async(self, playlist_url: str, tracks: list[Track]) -> None:
         async with browser_context(cookies=self._cookies) as (ctx, page):
-            await page.goto(playlist_url, wait_until="networkidle")
+            await page.goto(playlist_url, wait_until="domcontentloaded")
 
             sel = self._selectors
+            try:
+                await page.wait_for_selector(sel["playlist_track_row"], timeout=30_000)
+            except Exception:
+                pass
             rows = await page.query_selector_all(sel["playlist_track_row"])
             track_titles_to_remove = {t.title.lower() for t in tracks}
 
@@ -220,12 +235,17 @@ class AppleMusicProvider(MusicProvider):
 
         async with browser_context(cookies=self._cookies) as (ctx, page):
             page.on("response", _on_response)
-            await page.goto("https://music.apple.com/search", wait_until="networkidle")
+            await page.goto("https://music.apple.com/search", wait_until="domcontentloaded")
 
-            search_input = await page.wait_for_selector(sel["search_input"])
+            search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
             await search_input.fill(f"{title} {artist}")
             await search_input.press("Enter")
-            await page.wait_for_load_state("networkidle")
+
+            # 検索結果の表示を待機
+            try:
+                await page.wait_for_selector(sel["search_result_row"], timeout=15_000)
+            except Exception:
+                pass
 
             result_row = await page.query_selector(sel["search_result_row"])
             if not result_row:

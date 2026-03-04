@@ -113,7 +113,13 @@ class AmazonMusicProvider(MusicProvider):
         try:
             async with browser_context(cookies=self._cookies) as (ctx, page):
                 page.on("response", _on_response)
-                await page.goto(playlist_url, wait_until="networkidle")
+                await page.goto(playlist_url, wait_until="domcontentloaded")
+
+                # SPA レンダリング待機
+                try:
+                    await page.wait_for_selector(sel["playlist_track_row"], timeout=30_000)
+                except Exception:
+                    logger.debug("Amazon Music: playlist_track_row not found within timeout")
 
                 logged_in = await page.query_selector(sel["logged_in_indicator"])
                 if not logged_in:
@@ -169,12 +175,16 @@ class AmazonMusicProvider(MusicProvider):
 
         async with browser_context(cookies=self._cookies) as (ctx, page):
             for track in tracks:
-                await page.goto("https://music.amazon.co.jp", wait_until="networkidle")
+                await page.goto("https://music.amazon.co.jp", wait_until="domcontentloaded")
 
-                search_input = await page.wait_for_selector(sel["search_input"])
+                search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
                 await search_input.fill(f"{track.title} {track.artist}")
                 await search_input.press("Enter")
-                await page.wait_for_load_state("networkidle")
+
+                try:
+                    await page.wait_for_selector(sel["search_result_row"], timeout=15_000)
+                except Exception:
+                    pass
 
                 result_row = await page.query_selector(sel["search_result_row"])
                 if not result_row:
@@ -194,9 +204,13 @@ class AmazonMusicProvider(MusicProvider):
 
     async def _remove_tracks_async(self, playlist_url: str, tracks: list[Track]) -> None:
         async with browser_context(cookies=self._cookies) as (ctx, page):
-            await page.goto(playlist_url, wait_until="networkidle")
+            await page.goto(playlist_url, wait_until="domcontentloaded")
 
             sel = self._selectors
+            try:
+                await page.wait_for_selector(sel["playlist_track_row"], timeout=30_000)
+            except Exception:
+                pass
             rows = await page.query_selector_all(sel["playlist_track_row"])
             track_titles_to_remove = {t.title.lower() for t in tracks}
 
@@ -237,12 +251,16 @@ class AmazonMusicProvider(MusicProvider):
 
         async with browser_context(cookies=self._cookies) as (ctx, page):
             page.on("response", _on_response)
-            await page.goto("https://music.amazon.co.jp", wait_until="networkidle")
+            await page.goto("https://music.amazon.co.jp", wait_until="domcontentloaded")
 
-            search_input = await page.wait_for_selector(sel["search_input"])
+            search_input = await page.wait_for_selector(sel["search_input"], timeout=15_000)
             await search_input.fill(f"{title} {artist}")
             await search_input.press("Enter")
-            await page.wait_for_load_state("networkidle")
+
+            try:
+                await page.wait_for_selector(sel["search_result_row"], timeout=15_000)
+            except Exception:
+                pass
 
             result_row = await page.query_selector(sel["search_result_row"])
             if not result_row:
@@ -282,7 +300,12 @@ class AmazonMusicProvider(MusicProvider):
 
         try:
             async with browser_context(cookies=self._cookies) as (ctx, page):
-                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="networkidle")
+                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="domcontentloaded")
+
+                try:
+                    await page.wait_for_selector(sel["library_playlist_row"], timeout=30_000)
+                except Exception:
+                    pass
 
                 logged_in = await page.query_selector(sel["logged_in_indicator"])
                 if not logged_in:
@@ -317,7 +340,7 @@ class AmazonMusicProvider(MusicProvider):
 
         try:
             async with browser_context(cookies=self._cookies) as (ctx, page):
-                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="networkidle")
+                await page.goto("https://music.amazon.co.jp/my/playlists", wait_until="domcontentloaded")
 
                 new_btn = await page.wait_for_selector(sel["new_playlist_button"], timeout=10000)
                 await new_btn.click()
@@ -327,7 +350,7 @@ class AmazonMusicProvider(MusicProvider):
 
                 confirm_btn = await page.wait_for_selector(sel["new_playlist_confirm"], timeout=10000)
                 await confirm_btn.click()
-                await page.wait_for_load_state("networkidle")
+                await asyncio.sleep(3)
 
                 playlist_url = page.url
                 logger.info("Created Amazon Music playlist '%s' (url=%s)", name, playlist_url)
