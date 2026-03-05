@@ -1,0 +1,777 @@
+{
+  "playlist_name": "ふつうの軽音部",
+  "last_synced_at": "2026-03-05T03:50:14.668391+00:00",
+  "tracks": [
+    {
+      "isrc": null,
+      "title": "理由なき反抗（The Rebel Age）",
+      "artist": "a flood of circle",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "凛と",
+      "artist": "クリープハイプ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "名もなき詩",
+      "artist": "Mr.Children",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "君はロックを聴かない",
+      "artist": "あいみょん",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "透明少女",
+      "artist": "NUMBER GIRL",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "生活",
+      "artist": "syrup16g",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "赤橙",
+      "artist": "ACIDMAN",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "怪獣の花唄",
+      "artist": "Vaundy",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "スピカ",
+      "artist": "スピッツ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "おしゃかしゃま",
+      "artist": "RADWIMPS",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "あいどんわなだい",
+      "artist": "銀杏BOYZ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ソラニン",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "一途",
+      "artist": "King Gnu",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "天体観測",
+      "artist": "BUMP OF CHICKEN",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "シンデレラボーイ",
+      "artist": "Saucy Dog",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "everything is my guitar",
+      "artist": "andymori",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "援助交際",
+      "artist": "銀杏BOYZ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "はあとぶれいく",
+      "artist": "ZAZEN BOYS",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ジターバグ",
+      "artist": "ELLEGARDEN",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Bling-Bang-Bang-Born",
+      "artist": "Creepy Nuts",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "恋する",
+      "artist": "SHISHAMO",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "リンダ リンダ",
+      "artist": "ハンバート ハンバート",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "輝きだして走ってく",
+      "artist": "サンボマスター",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "夢で逢えたら",
+      "artist": "銀杏BOYZ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ドラマツルギー",
+      "artist": "Eve",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "UFOを呼ぶダンス",
+      "artist": "ポップしなないで",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "何も無い休日",
+      "artist": "キュウソネコカミ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "エンジェルベイビー",
+      "artist": "銀杏BOYZ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "16",
+      "artist": "andymori",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "死ぬまでに俺がやりたいこと",
+      "artist": "ヤングスキニー",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "American Idiot",
+      "artist": "グリーン・デイ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "覚悟を決めろ!",
+      "artist": "サバシスター",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "IGGY POP FAN CLUB",
+      "artist": "NUMBER GIRL",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "閃光少女",
+      "artist": "東京事変",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "拝啓、少年よ",
+      "artist": "Hump Back",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "番狂わせ",
+      "artist": "Hump Back",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Wonderwall (Remastered)",
+      "artist": "オアシス",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Crazy Dancer",
+      "artist": "夜の本気ダンス",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "海と山椒魚",
+      "artist": "米津玄師",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "インフェルノ (Remastered 2020)",
+      "artist": "Mrs. GREEN APPLE",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "四角革命",
+      "artist": "相対性理論",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "lemonade",
+      "artist": "Chilli Beans.",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "誘惑",
+      "artist": "GLAY",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ばらの花",
+      "artist": "くるり",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Let's ダバダバ",
+      "artist": "POLYSICS",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "デイドリーム",
+      "artist": "reGretGirl",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "曇天",
+      "artist": "DOES",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ブルーバード (2021 Remastered)",
+      "artist": "いきものがかり",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "貴方の恋人になりたい",
+      "artist": "チョーキューメイ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ブルーベリー・ナイツ",
+      "artist": "マカロニえんぴつ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "オンリーワンダー",
+      "artist": "フレデリック",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "狂乱 Hey Kids!!",
+      "artist": "THE ORAL CIGARETTES",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "SSW",
+      "artist": "コレサワ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "小さな恋のうた",
+      "artist": "MONGOL800",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Basket Case",
+      "artist": "グリーン・デイ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "声",
+      "artist": "羊文学",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "life hack",
+      "artist": "Vaundy",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "明日も",
+      "artist": "SHISHAMO",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ベノム",
+      "artist": "かいりきベア",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "落堕",
+      "artist": "ポップしなないで",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "魚の目シンパシー",
+      "artist": "ラブリーサマーちゃん",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ファジーネーブル",
+      "artist": "Conton Candy",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "more than words",
+      "artist": "羊文学",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "LILLY",
+      "artist": "Hump Back",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ともに",
+      "artist": "WANIMA",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "第ゼロ感",
+      "artist": "10-FEET",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "青と夏",
+      "artist": "Mrs. GREEN APPLE",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ヤバみ",
+      "artist": "ヤバイTシャツ屋さん",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "いつか",
+      "artist": "Saucy Dog",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "踊り子",
+      "artist": "Vaundy",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "高嶺の花子さん",
+      "artist": "back number",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "Oz.",
+      "artist": "yama",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "DEAR MY FRIEND",
+      "artist": "Hi-STANDARD",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "swim",
+      "artist": "04 Limited Sazabys",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "アイラブ言う",
+      "artist": "忘れらんねえよ",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "ストラトキャスター・シーサイド '22",
+      "artist": "Suspended 4th",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "REVIVER オリジナルVer.",
+      "artist": "MY FIRST STORY",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    }
+  ],
+  "unmatched": []
+}
