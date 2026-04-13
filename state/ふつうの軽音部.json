@@ -1,6 +1,6 @@
 {
   "playlist_name": "ふつうの軽音部",
-  "last_synced_at": "2026-03-05T03:50:14.668391+00:00",
+  "last_synced_at": "2026-04-13T04:10:57.583099+00:00",
   "tracks": [
     {
       "isrc": null,
@@ -766,6 +766,36 @@
       "isrc": null,
       "title": "REVIVER オリジナルVer.",
       "artist": "MY FIRST STORY",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "クリスマス",
+      "artist": "JUDY AND MARY",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "さよならエレジー",
+      "artist": "菅田将暉",
+      "album": "",
+      "service_ids": {
+        "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
+      },
+      "added_at": null
+    },
+    {
+      "isrc": null,
+      "title": "みずいろの雨",
+      "artist": "八神純子",
       "album": "",
       "service_ids": {
         "amazon_music": "https://music.amazon.co.jp/user-playlists/3f38b13e2a0044d5932dc78b3e7b8899jajp"
