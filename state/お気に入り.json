@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-04-13T04:09:54.406054+00:00",
+  "last_synced_at": "2026-04-14T04:04:07.126825+00:00",
   "tracks": [
     {
       "isrc": "JPU902305489",
@@ -2363,14 +2363,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "花は桜 君は美し",
-      "artist": "Awesome City Club",
-      "isrc": "JPU902305489",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-04-13T04:09:44.631575+00:00"
-    }
-  ]
+  "unmatched": []
 }
