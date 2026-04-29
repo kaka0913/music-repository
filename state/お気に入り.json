@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-04-28T04:20:54.232134+00:00",
+  "last_synced_at": "2026-04-29T04:15:33.369995+00:00",
   "tracks": [
     {
       "isrc": "JPU901902133",
@@ -2413,38 +2413,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "消えない",
-      "artist": "AKAIKO-EN",
-      "isrc": "JPU901902133",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-04-28T04:18:42.819707+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "感情的侵略",
-      "artist": "Lavt",
-      "isrc": "QMFMF2500802",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-04-28T04:19:15.245011+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "誓い",
-      "artist": "Leina",
-      "isrc": "JPU902601126",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-04-28T04:19:47.779361+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "プルートー",
-      "artist": "CLAN QUEEN",
-      "isrc": "JPU902304376",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-04-28T04:20:20.351048+00:00"
-    }
-  ]
+  "unmatched": []
 }
