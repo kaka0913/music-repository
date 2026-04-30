@@ -1,7 +1,17 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-04-29T04:15:33.369995+00:00",
+  "last_synced_at": "2026-04-30T04:18:18.450008+00:00",
   "tracks": [
+    {
+      "isrc": "JPTO00502636",
+      "title": "透明人間",
+      "artist": "Tokyo Incidents",
+      "album": "総合",
+      "service_ids": {
+        "spotify": "7IUpgtokm66oFFIvcFsAq6"
+      },
+      "added_at": "2026-04-29T15:21:31Z"
+    },
     {
       "isrc": "JPU901902133",
       "title": "消えない",
@@ -2413,5 +2423,14 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "透明人間",
+      "artist": "Tokyo Incidents",
+      "isrc": "JPTO00502636",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-04-30T04:18:09.349708+00:00"
+    }
+  ]
 }
