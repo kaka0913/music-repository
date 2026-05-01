@@ -1,7 +1,17 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-04-30T04:18:18.450008+00:00",
+  "last_synced_at": "2026-05-01T04:26:38.665410+00:00",
   "tracks": [
+    {
+      "isrc": "JPU901801089",
+      "title": "Play A Love Song",
+      "artist": "Hikaru Utada",
+      "album": "初恋",
+      "service_ids": {
+        "spotify": "4CBNW5OBfgfo1muPh3yeJc"
+      },
+      "added_at": "2026-05-01T00:38:29Z"
+    },
     {
       "isrc": "JPTO00502636",
       "title": "透明人間",
@@ -2426,11 +2436,11 @@
   "unmatched": [
     {
       "source_service": "apple_music",
-      "title": "透明人間",
-      "artist": "Tokyo Incidents",
-      "isrc": "JPTO00502636",
+      "title": "Play A Love Song",
+      "artist": "Hikaru Utada",
+      "isrc": "JPU901801089",
       "reason": "No match found on apple_music",
-      "detected_at": "2026-04-30T04:18:09.349708+00:00"
+      "detected_at": "2026-05-01T04:26:28.980012+00:00"
     }
   ]
 }
