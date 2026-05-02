@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-01T04:26:38.665410+00:00",
+  "last_synced_at": "2026-05-02T04:08:25.934187+00:00",
   "tracks": [
     {
       "isrc": "JPU901801089",
@@ -2433,14 +2433,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "Play A Love Song",
-      "artist": "Hikaru Utada",
-      "isrc": "JPU901801089",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-01T04:26:28.980012+00:00"
-    }
-  ]
+  "unmatched": []
 }
