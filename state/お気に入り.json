@@ -1,7 +1,27 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-03T04:21:12.885842+00:00",
+  "last_synced_at": "2026-05-04T04:22:09.747354+00:00",
   "tracks": [
+    {
+      "isrc": "JPU902102689",
+      "title": "右脳左脳",
+      "artist": "KANA-BOON",
+      "album": "Re:Pray",
+      "service_ids": {
+        "spotify": "6I0ydMXrFHg6ZK3btzRhFT"
+      },
+      "added_at": "2026-05-03T15:53:35Z"
+    },
+    {
+      "isrc": "JPPO02203267",
+      "title": "アイラブ言う",
+      "artist": "Wasureranneyo",
+      "album": "いまも忘れらんねえよ。 (DISC 1)",
+      "service_ids": {
+        "spotify": "0qNo1ESxfogTbOfMG3yyMD"
+      },
+      "added_at": "2026-05-03T15:07:25Z"
+    },
     {
       "isrc": "JPU901801089",
       "title": "Play A Love Song",
@@ -2433,5 +2453,22 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "アイラブ言う",
+      "artist": "Wasureranneyo",
+      "isrc": "JPPO02203267",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-04T04:21:20.022438+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "右脳左脳",
+      "artist": "KANA-BOON",
+      "isrc": "JPU902102689",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-04T04:21:52.513711+00:00"
+    }
+  ]
 }
