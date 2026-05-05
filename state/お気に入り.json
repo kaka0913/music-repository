@@ -1,7 +1,47 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-04T04:22:09.747354+00:00",
+  "last_synced_at": "2026-05-05T04:09:36.702819+00:00",
   "tracks": [
+    {
+      "isrc": "JPKS00300301",
+      "title": "遥か彼方",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "BEST HIT AKG",
+      "service_ids": {
+        "spotify": "5ORPYXJKlpHWIdceavSGrL"
+      },
+      "added_at": "2026-05-04T07:42:05Z"
+    },
+    {
+      "isrc": "JPU902501186",
+      "title": "MAKUAKE",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "MAKUAKE",
+      "service_ids": {
+        "spotify": "2VTbIKHS8foduKFrcatEwN"
+      },
+      "added_at": "2026-05-04T07:41:59Z"
+    },
+    {
+      "isrc": "JPU902404451",
+      "title": "ライフ イズ ビューティフル",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "ライフ イズ ビューティフル",
+      "service_ids": {
+        "spotify": "1SRJVcxArjAIkFtCNIMfVw"
+      },
+      "added_at": "2026-05-04T07:41:50Z"
+    },
+    {
+      "isrc": "JPKS00600066",
+      "title": "センスレス",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "ファンクラブ",
+      "service_ids": {
+        "spotify": "2jQLW6pCVXigNasgSTn1C2"
+      },
+      "added_at": "2026-05-04T07:36:51Z"
+    },
     {
       "isrc": "JPU902102689",
       "title": "右脳左脳",
@@ -2456,19 +2496,35 @@
   "unmatched": [
     {
       "source_service": "apple_music",
-      "title": "アイラブ言う",
-      "artist": "Wasureranneyo",
-      "isrc": "JPPO02203267",
+      "title": "センスレス",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPKS00600066",
       "reason": "No match found on apple_music",
-      "detected_at": "2026-05-04T04:21:20.022438+00:00"
+      "detected_at": "2026-05-05T04:07:21.061090+00:00"
     },
     {
       "source_service": "apple_music",
-      "title": "右脳左脳",
-      "artist": "KANA-BOON",
-      "isrc": "JPU902102689",
+      "title": "ライフ イズ ビューティフル",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPU902404451",
       "reason": "No match found on apple_music",
-      "detected_at": "2026-05-04T04:21:52.513711+00:00"
+      "detected_at": "2026-05-05T04:07:54.019130+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "MAKUAKE",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPU902501186",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-05T04:08:26.928867+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "遥か彼方",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPKS00300301",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-05T04:09:00.699549+00:00"
     }
   ]
 }
