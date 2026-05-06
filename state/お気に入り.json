@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-05T04:09:36.702819+00:00",
+  "last_synced_at": "2026-05-06T04:18:14.941130+00:00",
   "tracks": [
     {
       "isrc": "JPKS00300301",
@@ -2493,38 +2493,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "センスレス",
-      "artist": "ASIAN KUNG-FU GENERATION",
-      "isrc": "JPKS00600066",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-05T04:07:21.061090+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "ライフ イズ ビューティフル",
-      "artist": "ASIAN KUNG-FU GENERATION",
-      "isrc": "JPU902404451",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-05T04:07:54.019130+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "MAKUAKE",
-      "artist": "ASIAN KUNG-FU GENERATION",
-      "isrc": "JPU902501186",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-05T04:08:26.928867+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "遥か彼方",
-      "artist": "ASIAN KUNG-FU GENERATION",
-      "isrc": "JPKS00300301",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-05T04:09:00.699549+00:00"
-    }
-  ]
+  "unmatched": []
 }
