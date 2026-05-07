@@ -1,7 +1,87 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-06T04:18:14.941130+00:00",
+  "last_synced_at": "2026-05-07T04:23:53.532663+00:00",
   "tracks": [
+    {
+      "isrc": "JPVI00839710",
+      "title": "アドベンチャー",
+      "artist": "sakanaction",
+      "album": "シンシロ",
+      "service_ids": {
+        "spotify": "7qDLF735nF9AblLKgv00km"
+      },
+      "added_at": "2026-05-06T11:45:37Z"
+    },
+    {
+      "isrc": "JPVI00703670",
+      "title": "白波トップウォーター",
+      "artist": "sakanaction",
+      "album": "Go To The Future",
+      "service_ids": {
+        "spotify": "3DolnEGTujymXDg7WaiNZi"
+      },
+      "added_at": "2026-05-06T11:24:39Z"
+    },
+    {
+      "isrc": "JPKS00301525",
+      "title": "無限グライダー",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "君繋ファイブエム",
+      "service_ids": {
+        "spotify": "72x9qYIypIbyOlsvusj1VC"
+      },
+      "added_at": "2026-05-06T11:21:50Z"
+    },
+    {
+      "isrc": "JPSR00402286",
+      "title": "青春狂騒曲",
+      "artist": "Sambomaster",
+      "album": "サンボマスターは君に語りかける",
+      "service_ids": {
+        "spotify": "3zE6YLb2IBb8NriBuuXWQd"
+      },
+      "added_at": "2026-05-06T11:02:52Z"
+    },
+    {
+      "isrc": "JPKS00600063",
+      "title": "路地裏のうさぎ",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "ファンクラブ",
+      "service_ids": {
+        "spotify": "6uFoVVMtJt8XwzetfGzTcj"
+      },
+      "added_at": "2026-05-06T10:21:30Z"
+    },
+    {
+      "isrc": "JPKS00501841",
+      "title": "ワールドアパート",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "album": "ファンクラブ",
+      "service_ids": {
+        "spotify": "61ssVRFKyHLe1vDetrh6VL"
+      },
+      "added_at": "2026-05-06T10:16:51Z"
+    },
+    {
+      "isrc": "JPSR00900821",
+      "title": "again",
+      "artist": "YUI",
+      "album": "HOLIDAYS IN THE SUN",
+      "service_ids": {
+        "spotify": "4OQq1bcP12GQQXJNupxqfR"
+      },
+      "added_at": "2026-05-06T09:56:00Z"
+    },
+    {
+      "isrc": "JPVI00942350",
+      "title": "アルクアラウンド",
+      "artist": "sakanaction",
+      "album": "kikUUiki",
+      "service_ids": {
+        "spotify": "3ov6DXhs8UfsHqoMLz4zO9"
+      },
+      "added_at": "2026-05-06T09:14:20Z"
+    },
     {
       "isrc": "JPKS00300301",
       "title": "遥か彼方",
@@ -2493,5 +2573,70 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "アルクアラウンド",
+      "artist": "sakanaction",
+      "isrc": "JPVI00942350",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:19:00.519621+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "路地裏のうさぎ",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPKS00600063",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:19:32.778697+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "白波トップウォーター",
+      "artist": "sakanaction",
+      "isrc": "JPVI00703670",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:20:05.693320+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "青春狂騒曲",
+      "artist": "Sambomaster",
+      "isrc": "JPSR00402286",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:20:38.473350+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "無限グライダー",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPKS00301525",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:21:12.097695+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "アドベンチャー",
+      "artist": "sakanaction",
+      "isrc": "JPVI00839710",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:21:45.418669+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "ワールドアパート",
+      "artist": "ASIAN KUNG-FU GENERATION",
+      "isrc": "JPKS00501841",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:22:17.955783+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "again",
+      "artist": "YUI",
+      "isrc": "JPSR00900821",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-07T04:22:51.284772+00:00"
+    }
+  ]
 }
