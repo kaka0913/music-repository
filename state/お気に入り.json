@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-08T04:08:51.990555+00:00",
+  "last_synced_at": "2026-05-09T04:11:37.217187+00:00",
   "tracks": [
     {
       "isrc": "JPU902600844",
@@ -2603,30 +2603,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "棒人間",
-      "artist": "RADWIMPS",
-      "isrc": "JPPO01621594",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-08T04:07:20.620016+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "膝栗毛",
-      "artist": "ASIAN KUNG-FU GENERATION",
-      "isrc": "JPU902600844",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-08T04:07:53.172645+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "フルドライブ",
-      "artist": "KANA-BOON",
-      "isrc": "JPKS01400216",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-08T04:08:25.794951+00:00"
-    }
-  ]
+  "unmatched": []
 }
