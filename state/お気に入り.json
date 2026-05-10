@@ -1,7 +1,27 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-09T04:11:37.217187+00:00",
+  "last_synced_at": "2026-05-10T04:25:28.931824+00:00",
   "tracks": [
+    {
+      "isrc": "JPTO01201936",
+      "title": "落日",
+      "artist": "Tokyo Incidents",
+      "album": "深夜枠",
+      "service_ids": {
+        "spotify": "2xXvKsx5sbtPHub78bn8en"
+      },
+      "added_at": "2026-05-09T06:17:26Z"
+    },
+    {
+      "isrc": "JPPO01806041",
+      "title": "DISTANCE",
+      "artist": "Hikaru Utada",
+      "album": "Distance",
+      "service_ids": {
+        "spotify": "41yBLCGKQEFPo46omVkMWY"
+      },
+      "added_at": "2026-05-09T05:44:59Z"
+    },
     {
       "isrc": "JPU902600844",
       "title": "膝栗毛",
@@ -2603,5 +2623,22 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "落日",
+      "artist": "Tokyo Incidents",
+      "isrc": "JPTO01201936",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-10T04:24:37.885861+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "DISTANCE",
+      "artist": "Hikaru Utada",
+      "isrc": "JPPO01806041",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-10T04:25:11.990197+00:00"
+    }
+  ]
 }
