@@ -1,7 +1,17 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-10T04:25:28.931824+00:00",
+  "last_synced_at": "2026-05-11T04:29:11.049508+00:00",
   "tracks": [
+    {
+      "isrc": "JPU901602291",
+      "title": "twoface",
+      "artist": "Aimer",
+      "album": "daydream",
+      "service_ids": {
+        "spotify": "3kao9nHh1bfxH4VhoEx0bU"
+      },
+      "added_at": "2026-05-10T06:21:24Z"
+    },
     {
       "isrc": "JPTO01201936",
       "title": "落日",
@@ -2626,19 +2636,11 @@
   "unmatched": [
     {
       "source_service": "apple_music",
-      "title": "落日",
-      "artist": "Tokyo Incidents",
-      "isrc": "JPTO01201936",
+      "title": "twoface",
+      "artist": "Aimer",
+      "isrc": "JPU901602291",
       "reason": "No match found on apple_music",
-      "detected_at": "2026-05-10T04:24:37.885861+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "DISTANCE",
-      "artist": "Hikaru Utada",
-      "isrc": "JPPO01806041",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-10T04:25:11.990197+00:00"
+      "detected_at": "2026-05-11T04:29:02.222504+00:00"
     }
   ]
 }
