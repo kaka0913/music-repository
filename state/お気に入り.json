@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-11T04:29:11.049508+00:00",
+  "last_synced_at": "2026-05-12T04:18:37.067790+00:00",
   "tracks": [
     {
       "isrc": "JPU901602291",
@@ -2633,14 +2633,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "twoface",
-      "artist": "Aimer",
-      "isrc": "JPU901602291",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-11T04:29:02.222504+00:00"
-    }
-  ]
+  "unmatched": []
 }
