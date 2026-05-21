@@ -1,7 +1,17 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-20T04:29:14.149616+00:00",
+  "last_synced_at": "2026-05-21T04:33:18.716647+00:00",
   "tracks": [
+    {
+      "isrc": "JPU902504575",
+      "title": "PROVANT",
+      "artist": "SawanoHiroyuki[nZk]",
+      "album": "PROVANT",
+      "service_ids": {
+        "spotify": "5g7WLWOwspQqTnqVZv0XQ8"
+      },
+      "added_at": "2026-05-21T00:05:12Z"
+    },
     {
       "isrc": "JPU901602291",
       "title": "twoface",
@@ -2633,5 +2643,14 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "PROVANT",
+      "artist": "SawanoHiroyuki[nZk]",
+      "isrc": "JPU902504575",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-21T04:33:10.468425+00:00"
+    }
+  ]
 }
