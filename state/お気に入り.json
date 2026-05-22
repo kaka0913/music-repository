@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-21T04:33:18.716647+00:00",
+  "last_synced_at": "2026-05-22T04:29:18.272196+00:00",
   "tracks": [
     {
       "isrc": "JPU902504575",
@@ -2643,14 +2643,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "PROVANT",
-      "artist": "SawanoHiroyuki[nZk]",
-      "isrc": "JPU902504575",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-21T04:33:10.468425+00:00"
-    }
-  ]
+  "unmatched": []
 }
