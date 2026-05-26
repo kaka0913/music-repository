@@ -1,7 +1,27 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-25T04:33:20.512689+00:00",
+  "last_synced_at": "2026-05-26T04:29:49.350139+00:00",
   "tracks": [
+    {
+      "isrc": "JPKS01300041",
+      "title": "CHA-LA HEAD-CHA-LA",
+      "artist": "FLOW",
+      "album": "FLOW THE MAX !!!",
+      "service_ids": {
+        "spotify": "55OTFD2MPHvPZrHYxGrjbg"
+      },
+      "added_at": "2026-05-25T10:53:11Z"
+    },
+    {
+      "isrc": "JPU901603842",
+      "title": "Fighter",
+      "artist": "KANA-BOON",
+      "album": "NAMiDA",
+      "service_ids": {
+        "spotify": "63Eem2YcddulJTylUNo4Xt"
+      },
+      "added_at": "2026-05-25T10:28:27Z"
+    },
     {
       "isrc": "JPU902504575",
       "title": "PROVANT",
@@ -2643,5 +2663,22 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": []
+  "unmatched": [
+    {
+      "source_service": "apple_music",
+      "title": "Fighter",
+      "artist": "KANA-BOON",
+      "isrc": "JPU901603842",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-26T04:28:57.099609+00:00"
+    },
+    {
+      "source_service": "apple_music",
+      "title": "CHA-LA HEAD-CHA-LA",
+      "artist": "FLOW",
+      "isrc": "JPKS01300041",
+      "reason": "No match found on apple_music",
+      "detected_at": "2026-05-26T04:29:30.564867+00:00"
+    }
+  ]
 }
