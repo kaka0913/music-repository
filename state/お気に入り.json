@@ -1,6 +1,6 @@
 {
   "playlist_name": "お気に入り",
-  "last_synced_at": "2026-05-26T04:29:49.350139+00:00",
+  "last_synced_at": "2026-05-27T04:32:58.702187+00:00",
   "tracks": [
     {
       "isrc": "JPKS01300041",
@@ -2663,22 +2663,5 @@
       "added_at": "2022-12-18T04:09:44Z"
     }
   ],
-  "unmatched": [
-    {
-      "source_service": "apple_music",
-      "title": "Fighter",
-      "artist": "KANA-BOON",
-      "isrc": "JPU901603842",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-26T04:28:57.099609+00:00"
-    },
-    {
-      "source_service": "apple_music",
-      "title": "CHA-LA HEAD-CHA-LA",
-      "artist": "FLOW",
-      "isrc": "JPKS01300041",
-      "reason": "No match found on apple_music",
-      "detected_at": "2026-05-26T04:29:30.564867+00:00"
-    }
-  ]
+  "unmatched": []
 }
